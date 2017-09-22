@@ -9,6 +9,10 @@
 #define ACTION_H_
 
 class Action {
+private:
+	int fromStackNum;
+	int toStackNum;
+	char charBlockName;
 public:
 	Action();
 	virtual ~Action();
