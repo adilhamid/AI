@@ -13,18 +13,16 @@
 #include <algorithm>
 #include <iostream>
 
-template<class T> class ProblemState {
-public:
-	virtual ~ProblemState() {
-	}
-	virtual bool IsGoalNode(T &nodeGoal) = 0;
-	virtual bool GenerateSuccessor(ASearch<T> *asearch, T *parent_node) = 0;
-	virtual bool IsIdenticalState(T &rhs) = 0;
-	virtual float GetGCost(T &successor) = 0;
-	virtual float heuristicsEstimateCost(T &nodeGoal) = 0;
-};
+#include "Node.h"
+#include "Action.h"
+#include "CompareClassNode.h"
+#include "State.h"
+
+template<class T> class AbstractClassFunctions;
 
 template<class ProblemState> class ASearch {
+
+public:
 
 	enum {
 		STATE_INVALID, STATE_SEARCHING, STATE_GOAL, STATE_NOTINIT, STATE_FAIL
@@ -70,7 +68,7 @@ template<class ProblemState> class ASearch {
 		//Now Initialize the cost Values of the Nodes accordingly
 
 		startNode->gCost = 0.0;
-		startNode->hCost = startNode->currentState.heuristicsEstimateCost(
+		startNode->hCost = startNode->currentState.HeuristicsEstimateCost(
 				goalNode->currentState);
 		startNode->totalCost = startNode->gCost + startNode->hCost;
 		startNode->Parent = NULL;
@@ -88,7 +86,7 @@ template<class ProblemState> class ASearch {
 	/***
 	 * Adding a successor node to the start or current Node while checking the frontier
 	 */
-	bool AddSuccessor(State &presentState) {
+	bool AddSuccessor(ProblemState &presentState) {
 		Node * newNode = initializeNode();
 		if (!newNode) {
 			return false;
@@ -174,10 +172,19 @@ template<class ProblemState> class ASearch {
 
 			successors.clear();
 
-			bool returnVal = nodePop->currentState.GenerateSuccessor(this,
-					nodePop ? &nodePop->Parent->currentState : NULL);
+//			bool returnVal = nodePop->currentState.GenerateSuccessor(successors,
+//					nodePop ? &nodePop->Parent->currentState : NULL);
 
-			if (!returnVal) { // If the successors were not generated due to memory issue or some other issue
+			std::vector<State> returnedSuccessors = nodePop->currentState.GenerateSuccessors(nodePop->Parent->currentState);
+
+			//Add the successors to the list
+			for(auto val :returnedSuccessors){
+				AddSuccessor(val);
+			}
+
+			if (successors.empty()) { // If the successors were not generated due to memory issue or some other issue
+
+				std::cout << "Am i doing it right or wrong"<<std::endl;
 
 				for (auto iter = successors.begin(); iter != successors.end();
 						iter++) {
@@ -234,7 +241,7 @@ template<class ProblemState> class ASearch {
 				(*successorIter)->Parent = nodePop;
 				(*successorIter)->gCost = updatedGCost;
 				(*successorIter)->hCost =
-						(*successorIter)->heuristicsEstimateCost(
+						(*successorIter)->currentState.HeuristicsEstimateCost(
 								goalNode->currentState);
 				(*successorIter)->totalCost = (*successorIter)->gCost
 						+ (*successorIter)->hCost;

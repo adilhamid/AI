@@ -9,6 +9,7 @@
 #define STATE_H_
 
 #include <stack>
+#include <vector>
 
 class State {
 private:
@@ -18,15 +19,12 @@ private:
 public:
 	State();
 	State(int);
-	float heuristicsEstimate(State goalState);
-	virtual ~State();
+	bool IsGoalNode(State currentState);
+	std::vector<State> GenerateSuccessors(State currentState);
+	bool IsIdenticalState(State currentState);
+	float GetGCost(State currentState);
+	float HeuristicsEstimateCost(State currentState);
+	~State();
 };
 
 #endif /* STATE_H_ */
-
-
-
- 1 E F
- 2 A B C
- 3 D
- 4
