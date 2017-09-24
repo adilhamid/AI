@@ -8,7 +8,12 @@
 #include "Node.h"
 
 Node::Node() {
-	// TODO Auto-generated constructor stub
+
+	Parent = NULL;
+	child = NULL;
+	gCost = 0.0;
+	hCost = 0.0;
+	totalCost = 0.0;
 
 }
 

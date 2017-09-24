@@ -12,18 +12,24 @@
 #include <vector>
 
 class State {
+
 private:
-	std::stack<char> *stackHolders;
-	int numOfHolders;
+	float HeuristicsOneCost(State currentState);
+public:
+	std::vector<char> *stackHolders;
+	int numStacks;
+	int numBlocks;
 
 public:
 	State();
-	State(int);
+
+	State(int, int);
 	bool IsGoalNode(State currentState);
 	std::vector<State> GenerateSuccessors(State currentState);
 	bool IsIdenticalState(State currentState);
 	float GetGCost(State currentState);
 	float HeuristicsEstimateCost(State currentState);
+	void PrintState();
 	~State();
 };
 

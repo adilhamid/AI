@@ -203,6 +203,7 @@ public:
 
 			for (auto successorIter = successors.begin();
 					successorIter != successors.end(); successorIter++) {
+
 				float updatedGCost = nodePop->gCost
 						+ nodePop->currentState.GetGCost(
 								(*successorIter)->currentState); // Get Cost will be user dependent
