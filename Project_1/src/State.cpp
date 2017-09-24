@@ -56,7 +56,7 @@ void randomize(vector<char> arr, int n) {
 }
 
 State ProblemGeneratorBinomial() {
-	cout << "Initial State generator"<<endl;
+	cout << "Initial State generator..."<<endl;
 	State initialState(numStacks, numBlocks);
 	int totalStacks = numStacks;
 	vector<char> arrayList(numBlocks);
