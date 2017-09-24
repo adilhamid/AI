@@ -6,6 +6,7 @@
  */
 
 #include "State.h"
+#include "ASearch.h"
 #include <iostream>
 #include <vector>
 #include <assert.h>
@@ -19,26 +20,14 @@ int numBlocks = 5;
 int maxSteps = 100;
 int minSteps = 0;
 
-void InitializeProblemState(State goalState) {
+State InitializeProblemState() {
+	State goalState(numStacks, numBlocks);
 	assert(numStacks >= 2 && numBlocks >= 1);
 	// Putting the Goal State
 	for (int counter = 0; counter < numBlocks; ++counter) {
 		goalState.stackHolders[0].push_back('A' + counter);
 	}
-}
-
-int ProblemGenerator(State goalState) {
-//	cout << "Inside the Problem Generator Function"<<endl;
-//	State initialState(numStacks , numBlocks);
-//	InitializeProblemState(initialState) ;
-//	initialState.PrintState();
-//
-//	int numSteps= 0;
-//	int randNum = rand()%(maxSteps-minSteps + 1) + minSteps;
-//	for (int cnt = 0; cnt < randNum; ++cnt) {
-//		int stack
-//	}
-	return 0;
+	return goalState;
 }
 
 void swap(char *a, char *b) {
@@ -56,7 +45,7 @@ void randomize(vector<char> arr, int n) {
 }
 
 State ProblemGeneratorBinomial() {
-	cout << "Initial State generator..."<<endl;
+	cout << "Initial State generator..." << endl;
 	State initialState(numStacks, numBlocks);
 	int totalStacks = numStacks;
 	vector<char> arrayList(numBlocks);
@@ -85,6 +74,7 @@ State ProblemGeneratorBinomial() {
 	}
 	initialState.PrintState();
 	cout << "Ending the Problem generator....." << endl;
+	return initialState;
 }
 
 int main(int argc, char* argv[]) {
@@ -107,10 +97,52 @@ int main(int argc, char* argv[]) {
 //	cout << "H1 Heuristics " << testState.HeuristicsEstimateCost(goalState)
 //			<< endl;
 
-	ProblemGeneratorBinomial();
+//	State initialState = ProblemGeneratorBinomial();
+//
+//	cout << "I am here "<< endl;
+//	initialState.PrintState();
+//
+//	initialState.GenerateSuccessors(initialState);
+//
+//	cout << "I am running this problem now man" << endl;
 
-	cout << "I am running this problem now man" << endl;
 
+	// Starting the initial state and goal state
+	State initialState = ProblemGeneratorBinomial();
+	State goalState = InitializeProblemState();
+
+	// Initialize the blocksworld A* Search
+	ASearch<State> blocksworld;
+
+	blocksworld.setInitStateGoalState(initialState, goalState);
+
+	cout << "I am here now "<<endl;
+
+	int resultState;
+	int searchSteps = 0;
+
+
+	//Searching algorithm starts
+	do{
+		resultState = blocksworld.initAsearch();
+		cout << "Result State "<<endl;
+		cout << "Search Step number: " << searchSteps<<endl;
+		searchSteps++;
+
+	}
+	while(resultState ==  ASearch<State>::STATE_SEARCHING);
+
+	if(resultState == ASearch<State>::STATE_GOAL){
+		cout<< "Goal State Found "<<endl;
+
+		cout << "Total Cost "<< blocksworld.GetTotalSolutionCost();
+		Node * tempNode = blocksworld.goalNode;
+		while(tempNode){
+			tempNode->currentState.PrintState();
+			tempNode = tempNode->Parent;
+		}
+	}
+	cout << "Done and dusted "<<endl;
 	return 0;
 
 }
@@ -143,10 +175,40 @@ bool State::IsGoalNode(State goalState) {
 	}
 	return true;
 }
-
+void DeepCopyState(State sourceState, State destState){
+	for (int cntStack = 0; cntStack < numStacks; ++cntStack) {
+		for (int cntBlocks = 0; cntBlocks < sourceState.stackHolders[cntStack].size(); ++cntBlocks) {
+			destState.stackHolders[cntStack].push_back(sourceState.stackHolders[cntStack][cntBlocks]);
+		}
+	}
+	return;
+}
 std::vector<State> State::GenerateSuccessors(State currentState) {
-	vector<State> returnVal;
 
+	cout <<  "Generating the Successors"<<endl;
+	vector<State> returnVal;
+	for (int cntStack = 0; cntStack < numStacks; ++cntStack) {
+		if (currentState.stackHolders[cntStack].size() > 0) {
+			char topElement =   currentState.stackHolders[cntStack].back();
+			for (int innerCntStack = 0; innerCntStack < numStacks;
+					++innerCntStack) {
+				if (cntStack == innerCntStack)
+					continue;
+
+				// Add the State to the list of successors which is accessible from the current node.
+				State tempState(numStacks, numBlocks);
+				//DeepCopy the State
+				DeepCopyState(currentState, tempState);
+
+				tempState.stackHolders[cntStack].pop_back();
+				tempState.stackHolders[innerCntStack].push_back(topElement);
+
+				tempState.PrintState();
+				returnVal.push_back(tempState);
+
+			}
+		}
+	}
 	return returnVal;
 }
 
@@ -211,4 +273,5 @@ float State::HeuristicsOneCost(State goalState) {
 State::~State() {
 // TODO Auto-generated destructor stub
 }
+
 
