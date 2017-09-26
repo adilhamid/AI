@@ -15,7 +15,7 @@ class Node {
 
 public:
 	State currentState;
-	Node* Parent;
+	Node* parent;
 	Node *child;
 
 	float totalCost; // g(n) + h(n)

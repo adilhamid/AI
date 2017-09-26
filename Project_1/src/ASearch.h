@@ -83,7 +83,7 @@ public:
 		startNode->hCost = startNode->currentState.HeuristicsEstimateCost(
 				goalNode->currentState);
 		startNode->totalCost = startNode->gCost + startNode->hCost;
-		startNode->Parent = NULL;
+		startNode->parent = NULL;
 
 		//Now we update the frontier since we have explored the initial or goal node
 		frontier.push_back(startNode);
@@ -171,7 +171,7 @@ public:
 
 		// Goal test the node popped from frontier
 		if (nodePop->currentState.IsGoalNode(goalNode->currentState)) {
-			goalNode->Parent = nodePop->Parent;
+			goalNode->parent = nodePop->parent;
 			goalNode->totalCost = nodePop->totalCost;
 			goalNode->gCost = nodePop->gCost;
 			goalNode->hCost = nodePop->hCost;
@@ -253,7 +253,7 @@ public:
 				}
 				// End of Checking the already present states
 
-				(*successorIter)->Parent = nodePop;
+				(*successorIter)->parent = nodePop;
 				(*successorIter)->gCost = updatedGCost;
 				(*successorIter)->hCost =
 						(*successorIter)->currentState.HeuristicsEstimateCost(

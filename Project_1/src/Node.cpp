@@ -8,8 +8,7 @@
 #include "Node.h"
 
 Node::Node() {
-
-	Parent = NULL;
+	parent = NULL;
 	child = NULL;
 	gCost = 0.0;
 	hCost = 0.0;

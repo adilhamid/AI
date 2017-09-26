@@ -139,7 +139,7 @@ int main(int argc, char* argv[]) {
 		Node * tempNode = blocksworld.goalNode;
 		while(tempNode){
 			tempNode->currentState.PrintState();
-			tempNode = tempNode->Parent;
+			tempNode = tempNode->parent;
 		}
 	}
 	cout << "Done and dusted "<<endl;
