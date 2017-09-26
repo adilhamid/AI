@@ -41,7 +41,6 @@ public:
 	std::vector<Node *> successors;
 	std::vector<Node *> exploredSet;
 
-// Constructor
 	ASearch() {
 		currStateVal = STATE_NOTINIT;
 		startNode = NULL;
@@ -180,9 +179,6 @@ inline int ASearch<ProblemState>::ASearchExecute() {
 	} else {  // Not Goal State then explore the more branches of the node
 
 		successors.clear();
-
-//			bool returnVal = nodePop->currentState.GenerateSuccessor(successors,
-//					nodePop ? &nodePop->Parent->currentState : NULL);
 
 		std::vector<BlocksWorldProblem> returnedSuccessors =
 				nodePop->currentState.GenerateSuccessors(nodePop->currentState);
