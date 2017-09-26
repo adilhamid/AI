@@ -5,7 +5,8 @@
  *      Author: adilhamidmalla
  */
 
-#include "State.h"
+#include "BlocksWorldProblem.h"
+
 #include "ASearch.h"
 #include <iostream>
 #include <vector>
@@ -20,8 +21,8 @@ int numBlocks = 5;
 int maxSteps = 100;
 int minSteps = 0;
 
-State InitializeProblemState() {
-	State goalState(numStacks, numBlocks);
+BlocksWorldProblem SetGoalState() {
+	BlocksWorldProblem goalState(numStacks, numBlocks);
 	assert(numStacks >= 2 && numBlocks >= 1);
 	// Putting the Goal State
 	for (int counter = 0; counter < numBlocks; ++counter) {
@@ -44,9 +45,9 @@ void randomize(vector<char> arr, int n) {
 	}
 }
 
-State ProblemGeneratorBinomial() {
+BlocksWorldProblem ProblemGenerator() {
 	cout << "Initial State generator..." << endl;
-	State initialState(numStacks, numBlocks);
+	BlocksWorldProblem initialState(numStacks, numBlocks);
 	int totalStacks = numStacks;
 	vector<char> arrayList(numBlocks);
 	for (int cnt = 0; cnt < numBlocks; ++cnt) {
@@ -77,87 +78,17 @@ State ProblemGeneratorBinomial() {
 	return initialState;
 }
 
-int main(int argc, char* argv[]) {
-
-//	cout << "Please enter number of stacks and number of blocks for the problem"<<endl;
-//	cin >> numStacks >> numBlocks;
-
-//	cout << "Initializing the Problem" << endl;
-//	State goalState(numStacks, numBlocks);
-//	State testState(numStacks, numBlocks);
-//	InitializeProblemState(goalState);
-//	InitializeProblemState(testState);
-//	testState.stackHolders[1].push_back(testState.stackHolders[0].back());
-//	testState.stackHolders[0].pop_back();
-//	goalState.PrintState();
-//	testState.PrintState();
-//	cout << "IsSameState " << testState.IsGoalNode(goalState) << endl;
-//	cout << "IsSameState " << goalState.IsGoalNode(testState) << endl;
-//
-//	cout << "H1 Heuristics " << testState.HeuristicsEstimateCost(goalState)
-//			<< endl;
-
-//	State initialState = ProblemGeneratorBinomial();
-//
-//	cout << "I am here "<< endl;
-//	initialState.PrintState();
-//
-//	initialState.GenerateSuccessors(initialState);
-//
-//	cout << "I am running this problem now man" << endl;
-
-
-	// Starting the initial state and goal state
-	State initialState = ProblemGeneratorBinomial();
-	State goalState = InitializeProblemState();
-
-	// Initialize the blocksworld A* Search
-	ASearch<State> blocksworld;
-
-	blocksworld.setInitStateGoalState(initialState, goalState);
-
-	cout << "I am here now "<<endl;
-
-	int resultState;
-	int searchSteps = 0;
-
-
-	//Searching algorithm starts
-	do{
-		resultState = blocksworld.initAsearch();
-		cout << "Result State "<<endl;
-		cout << "Search Step number: " << searchSteps<<endl;
-		searchSteps++;
-
-	}
-	while(resultState ==  ASearch<State>::STATE_SEARCHING);
-
-	if(resultState == ASearch<State>::STATE_GOAL){
-		cout<< "Goal State Found "<<endl;
-
-		cout << "Total Cost "<< blocksworld.GetTotalSolutionCost();
-		Node * tempNode = blocksworld.goalNode;
-		while(tempNode){
-			tempNode->currentState.PrintState();
-			tempNode = tempNode->parent;
-		}
-	}
-	cout << "Done and dusted "<<endl;
-	return 0;
-
-}
-
-State::State() {
+BlocksWorldProblem::BlocksWorldProblem() {
 // TODO Auto-generated constructor stub
 }
 
-State::State(int pNumStacks, int pNumBlocks) {
+BlocksWorldProblem::BlocksWorldProblem(int pNumStacks, int pNumBlocks) {
 	stackHolders = new std::vector<char>[pNumStacks];
 	numBlocks = pNumBlocks;
 	numStacks = pNumStacks;
 }
 
-bool State::IsGoalNode(State goalState) {
+bool BlocksWorldProblem::IsGoalNode(BlocksWorldProblem goalState) {
 
 	for (int cntStack = 0; cntStack < this->numStacks; ++cntStack) {
 		if (this->stackHolders[cntStack].size()
@@ -175,28 +106,31 @@ bool State::IsGoalNode(State goalState) {
 	}
 	return true;
 }
-void DeepCopyState(State sourceState, State destState){
+void DeepCopyState(BlocksWorldProblem sourceState, BlocksWorldProblem destState) {
 	for (int cntStack = 0; cntStack < numStacks; ++cntStack) {
-		for (int cntBlocks = 0; cntBlocks < sourceState.stackHolders[cntStack].size(); ++cntBlocks) {
-			destState.stackHolders[cntStack].push_back(sourceState.stackHolders[cntStack][cntBlocks]);
+		for (int cntBlocks = 0;
+				cntBlocks < sourceState.stackHolders[cntStack].size();
+				++cntBlocks) {
+			destState.stackHolders[cntStack].push_back(
+					sourceState.stackHolders[cntStack][cntBlocks]);
 		}
 	}
 	return;
 }
-std::vector<State> State::GenerateSuccessors(State currentState) {
+std::vector<BlocksWorldProblem> BlocksWorldProblem::GenerateSuccessors(BlocksWorldProblem currentState) {
 
-	cout <<  "Generating the Successors"<<endl;
-	vector<State> returnVal;
+	cout << "Generating the Successors" << endl;
+	vector<BlocksWorldProblem> returnVal;
 	for (int cntStack = 0; cntStack < numStacks; ++cntStack) {
 		if (currentState.stackHolders[cntStack].size() > 0) {
-			char topElement =   currentState.stackHolders[cntStack].back();
+			char topElement = currentState.stackHolders[cntStack].back();
 			for (int innerCntStack = 0; innerCntStack < numStacks;
 					++innerCntStack) {
 				if (cntStack == innerCntStack)
 					continue;
 
 				// Add the State to the list of successors which is accessible from the current node.
-				State tempState(numStacks, numBlocks);
+				BlocksWorldProblem tempState(numStacks, numBlocks);
 				//DeepCopy the State
 				DeepCopyState(currentState, tempState);
 
@@ -212,7 +146,7 @@ std::vector<State> State::GenerateSuccessors(State currentState) {
 	return returnVal;
 }
 
-bool State::IsIdenticalState(State currentState) {
+bool BlocksWorldProblem::IsIdenticalState(BlocksWorldProblem currentState) {
 
 	for (int cntStack = 0; cntStack < this->numStacks; ++cntStack) {
 		if (this->stackHolders[cntStack].size()
@@ -231,19 +165,19 @@ bool State::IsIdenticalState(State currentState) {
 	return true;
 }
 
-float State::GetGCost(State currentState) {
+float BlocksWorldProblem::GetGCost(BlocksWorldProblem currentState) {
 // Since the cost to each of the step is just one so the Cost is uniform for now
 	return 1.0;
 }
 
-float State::HeuristicsEstimateCost(State goalState) {
+float BlocksWorldProblem::HeuristicsEstimateCost(BlocksWorldProblem goalState) {
 
 // Use Different Heuristics for solving the problem
 	float h1 = HeuristicsOneCost(goalState);
 	return h1;
 }
 
-void State::PrintState() {
+void BlocksWorldProblem::PrintState() {
 	for (int stackCnt = 0; stackCnt < this->numStacks; stackCnt++) {
 		cout << "Stack " << stackCnt << ": ";
 		for (auto val : this->stackHolders[stackCnt]) {
@@ -251,9 +185,10 @@ void State::PrintState() {
 		}
 		cout << endl;
 	}
+	cout << endl;
 }
 // get the cost of misplaced blocks on the stacks
-float State::HeuristicsOneCost(State goalState) {
+float BlocksWorldProblem::HeuristicsOneCost(BlocksWorldProblem goalState) {
 	int h1Val = 0;
 // Number of elements present in the First Stack + misplaced stacks
 	h1Val += numBlocks - this->stackHolders[0].size();
@@ -270,8 +205,40 @@ float State::HeuristicsOneCost(State goalState) {
 	return h1Val;
 }
 
-State::~State() {
+BlocksWorldProblem::~BlocksWorldProblem() {
 // TODO Auto-generated destructor stub
 }
 
+int main(int argc, char* argv[]) {
 
+	// Starting the initial state and goal state
+	BlocksWorldProblem initialState = ProblemGenerator();
+	BlocksWorldProblem goalState = SetGoalState();
+
+	// Initialize the blocksworld A* Search
+	ASearch<BlocksWorldProblem> blocksworld;
+
+	blocksworld.InitProblemState(initialState, goalState);
+
+	int resultState;
+	int searchSteps = 0;
+
+	//Searching algorithm starts
+	do {
+		resultState = blocksworld.ASearchExecute();
+		cout << "Result State " << endl;
+		cout << "Search Step number: " << searchSteps << endl;
+		searchSteps++;
+
+	} while (resultState == ASearch<BlocksWorldProblem>::STATE_SEARCHING);
+
+	if (resultState == ASearch<BlocksWorldProblem>::STATE_GOAL) {
+		cout << "Goal State Found " << endl;
+		cout << "Total Cost " << blocksworld.GetTotalSolutionCost()<<endl;
+		blocksworld.TracebackSolution();
+
+	}
+	cout << "Done and dusted " << endl;
+	return 0;
+
+}

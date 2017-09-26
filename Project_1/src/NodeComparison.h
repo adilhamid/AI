@@ -10,7 +10,7 @@
 
 #include"Node.h"
 
-class CompareClassNode {
+class NodeComparison {
 public:
 	bool operator()(const Node *x, const Node *y) const {
 		return x->totalCost > y->totalCost;

@@ -9,12 +9,13 @@
 #define NODE_H_
 
 #include<vector>
-#include"State.h"
+
+#include "BlocksWorldProblem.h"
 
 class Node {
 
 public:
-	State currentState;
+	BlocksWorldProblem currentState;
 	Node* parent;
 	Node *child;
 
