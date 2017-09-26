@@ -189,7 +189,7 @@ public:
 //			bool returnVal = nodePop->currentState.GenerateSuccessor(successors,
 //					nodePop ? &nodePop->Parent->currentState : NULL);
 
-			std::vector<State> returnedSuccessors = nodePop->currentState.GenerateSuccessors(nodePop->Parent->currentState);
+			std::vector<State> returnedSuccessors = nodePop->currentState.GenerateSuccessors(nodePop->currentState);
 
 			//Add the successors to the list
 			for(auto val :returnedSuccessors){
@@ -239,7 +239,7 @@ public:
 
 				//Checking the Explored Nodes
 				auto exploredIter = exploredSet.begin();
-				for (; exploredIter != exploredSet.end(); frontierIter++) {
+				for (; exploredIter != exploredSet.end(); exploredIter++) {
 					if ((*exploredIter)->currentState.IsIdenticalState(
 							(*successorIter)->currentState)) {
 						break;
