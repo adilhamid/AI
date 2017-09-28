@@ -12,12 +12,22 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
+#include <unordered_set>
 
 #include "BlocksWorldProblem.h"
 #include "Node.h"
 #include "NodeComparison.h"
 
 using namespace std;
+
+struct ASearcReturnVal {
+	int resultState;
+	int depthOfGoalState;
+	int maxQueueSize;
+};
+
+//
+#define PQ
 
 template<class ProblemState> class ASearch {
 
@@ -30,8 +40,8 @@ public:
 
 	int countSteps;
 	int currStateVal;
-	int depthOfSearch;
 	int nodeCount;
+	int maxQueueSize;
 
 	Node * startNode;
 	Node * goalNode;
@@ -41,6 +51,11 @@ public:
 	std::vector<Node *> successors;
 	std::vector<Node *> exploredSet;
 
+	//New Explored Set Functionality
+	//std::unordered_set<string> exploredStateSet;
+
+	ASearcReturnVal returnAsearchVal;
+
 	ASearch() {
 		currStateVal = STATE_NOTINIT;
 		startNode = NULL;
@@ -48,19 +63,21 @@ public:
 		currentNode = NULL;
 		countSteps = 0;
 		nodeCount = 0;
-		depthOfSearch = 0;
+		maxQueueSize = INT_MIN;
 	}
 
 	// Member Functions
 	void InitProblemState(ProblemState& startState, ProblemState& goalState);
 	bool AddSuccessor(ProblemState &presentState);
+	bool AddSuccessorsInBulk(vector<BlocksWorldProblem>, Node*);
 
 	Node * CreateNode();
 	void deleteNode(Node * node);
 	void deleteProcessedNodes();
 	void deleteUnProcessedNodes();
+	string getHashCode(BlocksWorldProblem);
 
-	int ASearchExecute();
+	ASearcReturnVal ASearchExecute();
 	float GetTotalSolutionCost();
 	void TracebackSolution();
 
@@ -88,7 +105,6 @@ inline void ASearch<ProblemState>::InitProblemState(ProblemState& startState,
 	push_heap(frontier.begin(), frontier.end(), NodeComparison()); // Heapify the Vector
 
 	countSteps = 0;
-	depthOfSearch = 0;
 
 }
 
@@ -102,6 +118,25 @@ inline bool ASearch<ProblemState>::AddSuccessor(ProblemState& presentState) {
 	newNode->currentState = presentState;
 	successors.push_back(newNode);
 	return true;
+
+}
+
+template<class ProblemState>
+inline bool ASearch<ProblemState>::AddSuccessorsInBulk(
+		vector<BlocksWorldProblem> allocator, Node* parentNode) {
+
+	for (auto val : allocator) {
+
+		Node * newNode = CreateNode();
+		if (!newNode) {
+			return false;
+		}
+		newNode->currentState = val;
+		newNode->depth = parentNode->depth + 1;
+		successors.push_back(newNode);
+		return true;
+
+	}
 
 }
 
@@ -127,12 +162,21 @@ inline void ASearch<ProblemState>::deleteProcessedNodes() {
 		deleteNode(temp);
 	}
 	frontier.clear();
+
 	//Delete the closeList of Nodes
 	for (auto val : exploredSet) {
 		Node * temp = val;
 		deleteNode(temp);
 	}
 	exploredSet.clear();
+
+//	// Deleting the explored States
+//	for (auto val : exploredStateSet) {
+//		Node * temp = val;
+//		deleteNode(temp);
+//	}
+//	exploredStateSet.clear();
+
 	//Delete the goal Node
 	deleteNode(goalNode);
 }
@@ -142,26 +186,43 @@ inline void ASearch<ProblemState>::deleteUnProcessedNodes() {
 }
 
 template<class ProblemState>
-inline int ASearch<ProblemState>::ASearchExecute() {
+inline string ASearch<ProblemState>::getHashCode(
+		BlocksWorldProblem blocksWorldProblem) {
+
+	string result ="";
+	for(int i =0; i< numStacks; i++){
+		for(int j=0; j<blocksWorldProblem.stackHolders[i].size(); j++){
+			result += blocksWorldProblem.stackHolders[i][j];
+		}
+		result +=",";
+	}
+
+	cout << "HasCoding State "<<endl;
+
+	return result;
+}
+
+template<class ProblemState>
+inline ASearcReturnVal ASearch<ProblemState>::ASearchExecute() {
 	//Initial Conditions needs to be updated
-	std::cout << "Here i am " << std::endl;
 
-	if (currStateVal == STATE_GOAL || currStateVal == STATE_FAIL)
-		return currStateVal;
-
+	if (currStateVal == STATE_GOAL || currStateVal == STATE_FAIL) {
+		return returnAsearchVal;
+	}
+	cout <<  frontier.size() <<endl;
 	if (frontier.empty()) {
 		deleteProcessedNodes();
 		currStateVal = STATE_FAIL;
-		return currStateVal;
+		returnAsearchVal.resultState = currStateVal;
+		return returnAsearchVal;
 	}
 
-	// If frontier is not empty then we add the steps
-	countSteps++;
-
-	//Now Get the best Node from the frontier
 	Node * nodePop = frontier.front();
 	pop_heap(frontier.begin(), frontier.end(), NodeComparison());
 	frontier.pop_back();
+
+	// If frontier is not empty then we add the steps
+	countSteps++;
 
 	// Goal test the node popped from frontier
 	if (nodePop->currentState.IsGoalNode(goalNode->currentState)) {
@@ -169,12 +230,12 @@ inline int ASearch<ProblemState>::ASearchExecute() {
 		goalNode->totalCost = nodePop->totalCost;
 		goalNode->gCost = nodePop->gCost;
 		goalNode->hCost = nodePop->hCost;
+		goalNode->depth = nodePop->depth;
 
 		// Special Case of whether the goal present is start goal
 		// Where to handle the same ??? No Idea
 
 		currStateVal = STATE_GOAL;
-		return currStateVal;
 
 	} else {  // Not Goal State then explore the more branches of the node
 
@@ -183,6 +244,8 @@ inline int ASearch<ProblemState>::ASearchExecute() {
 		std::vector<BlocksWorldProblem> returnedSuccessors =
 				nodePop->currentState.GenerateSuccessors(nodePop->currentState);
 
+		//AddSuccessorsInBulk(returnedSuccessors, nodePop);
+
 		//Add the successors to the list
 		for (auto val : returnedSuccessors) {
 			AddSuccessor(val);
@@ -190,7 +253,7 @@ inline int ASearch<ProblemState>::ASearchExecute() {
 
 		if (successors.empty()) { // If the successors were not generated due to memory issue or some other issue
 
-			std::cout << "Am i doing it right or wrong" << std::endl;
+			cout << "Error Memory Issue or something else is happening" << endl;
 
 			for (auto iter = successors.begin(); iter != successors.end();
 					iter++) {
@@ -201,90 +264,118 @@ inline int ASearch<ProblemState>::ASearchExecute() {
 
 			currStateVal = STATE_FAIL;
 			std::cout << "Ran out of Memory : Successor Fault" << std::endl;
-			return currStateVal;
+
+		} else {
+
+			// Handling the case where the node has successors
+
+			for (auto successorIter = successors.begin();
+					successorIter != successors.end(); successorIter++) {
+
+				float updatedGCost = nodePop->gCost
+						+ nodePop->currentState.GetGCost(
+								(*successorIter)->currentState); // Get Cost will be user dependent
+
+				// Checking the frontier-- if Goal Node exists in the frontier and the cost in frontier is less than that of successor then we delete the successor
+				auto frontierIter = frontier.begin();
+				for (; frontierIter != frontier.end(); frontierIter++) {
+					if ((*frontierIter)->currentState.IsIdenticalState(
+							(*successorIter)->currentState)) {
+						break;
+					}
+				}
+				if (frontierIter != frontier.end()) {
+					if ((*frontierIter)->gCost <= updatedGCost) {
+						deleteNode(*successorIter);
+						continue;
+					}
+				}
+
+				//Checking the Explored Nodes
+				auto exploredIter = exploredSet.begin();
+				for (; exploredIter != exploredSet.end(); exploredIter++) {
+					if ((*exploredIter)->currentState.IsIdenticalState(
+							(*successorIter)->currentState)) {
+						break;
+					}
+				}
+				if (exploredIter != exploredSet.end()) {
+					if ((*exploredIter)->gCost <= updatedGCost) {
+						deleteNode(*successorIter);
+						continue;
+					}
+				}
+
+
+				// Enhanced way of comparing the results
+//				if( exploredStateSet.find( getHashCode((*successorIter)->currentState)) != exploredStateSet.end()){
+//					deleteNode(*successorIter);
+//					continue;
+//				}
+
+
+
+				// End of Checking the already present states
+
+				// updating the properties of the successors nodes
+				(*successorIter)->parent = nodePop;
+				(*successorIter)->gCost = updatedGCost;
+				(*successorIter)->hCost =
+						(*successorIter)->currentState.HeuristicsEstimateCost(
+								goalNode->currentState);
+				(*successorIter)->totalCost = (*successorIter)->gCost
+						+ (*successorIter)->hCost;
+				(*successorIter)->depth = nodePop->depth + 1;
+
+				// Remove from explored Node as it is visited again and updated
+				if (exploredIter != exploredSet.end()) {
+					cout << "I am weird and i go here as well "<<endl;
+					deleteNode((*exploredIter));
+					exploredSet.erase(exploredIter);
+				}
+
+
+
+				// If the node is present in the frontier also then we need to update the same
+				if (frontierIter != frontier.end()) {
+					deleteNode((*frontierIter));
+					frontier.erase(frontierIter);
+
+					make_heap(frontier.begin(), frontier.end(),
+							NodeComparison()); // Heapify on invalid heap doesn't work
+
+				}
+				frontier.push_back((*successorIter));
+				push_heap(frontier.begin(), frontier.end(), NodeComparison());
+
+			}
+
+			exploredSet.push_back(nodePop);
+
+			if ((int) frontier.size() > maxQueueSize) {
+				maxQueueSize = frontier.size();
+			}
 
 		}
-
-		// Handling the case where the node has successors
-
-		for (auto successorIter = successors.begin();
-				successorIter != successors.end(); successorIter++) {
-
-			float updatedGCost = nodePop->gCost
-					+ nodePop->currentState.GetGCost(
-							(*successorIter)->currentState); // Get Cost will be user dependent
-
-					// Checking the frontier
-			auto frontierIter = frontier.begin();
-			for (; frontierIter != frontier.end(); frontierIter++) {
-				if ((*frontierIter)->currentState.IsIdenticalState(
-						(*successorIter)->currentState)) {
-					break;
-				}
-			}
-			if (frontierIter != frontier.end()) {
-				if ((*frontierIter)->gCost <= updatedGCost) {
-					deleteNode(*successorIter);
-					continue;
-				}
-			}
-
-			//Checking the Explored Nodes
-			auto exploredIter = exploredSet.begin();
-			for (; exploredIter != exploredSet.end(); exploredIter++) {
-				if ((*exploredIter)->currentState.IsIdenticalState(
-						(*successorIter)->currentState)) {
-					break;
-				}
-			}
-			if (exploredIter != exploredSet.end()) {
-				if ((*exploredIter)->gCost <= updatedGCost) {
-					deleteNode(*successorIter);
-					continue;
-				}
-			}
-			// End of Checking the already present states
-
-			(*successorIter)->parent = nodePop;
-			(*successorIter)->gCost = updatedGCost;
-			(*successorIter)->hCost =
-					(*successorIter)->currentState.HeuristicsEstimateCost(
-							goalNode->currentState);
-			(*successorIter)->totalCost = (*successorIter)->gCost
-					+ (*successorIter)->hCost;
-
-			// Remove from explored Node as it is visited again and updated
-			if (exploredIter != exploredSet.end()) {
-				deleteNode((*exploredIter));
-				exploredSet.erase(exploredIter);
-			}
-
-			// If the node is present in the frontier also then we need to update the same
-			if (frontierIter != frontier.end()) {
-				deleteNode((*frontierIter));
-				frontier.erase(frontierIter);
-
-				make_heap(frontier.begin(), frontier.end(), NodeComparison()); // Heapify on invalid heap doesn't work
-			}
-
-			frontier.push_back((*successorIter));
-
-			push_heap(frontier.begin(), frontier.end(), NodeComparison());
-
-		}
-
-		exploredSet.push_back(nodePop);
-
 	}
 
-	return currStateVal;
+//Write the Iterations Details about the explored Node
+	cout << "Iteration Number " << countSteps << ", Queue Size = "
+
+	<< frontier.size() << ", TotalCost(gCost+hCost) = " << nodePop->totalCost
+			<< ", Depth= " << nodePop->depth << endl;
+
+	returnAsearchVal.depthOfGoalState = nodePop->depth;
+	returnAsearchVal.resultState = currStateVal;
+	returnAsearchVal.maxQueueSize = maxQueueSize;
+	return returnAsearchVal;
 }
 
 template<class ProblemState>
 inline float ASearch<ProblemState>::GetTotalSolutionCost() {
 
 	if (goalNode && currStateVal == STATE_GOAL) {
-		return goalNode->gCost; // return actual cost to reach the goal == totalCost == gCost + 0
+		return (goalNode->gCost + goalNode->hCost); // return actual cost to reach the goal == totalCost == gCost + 0
 	}
 	return -1;
 
@@ -293,9 +384,15 @@ inline float ASearch<ProblemState>::GetTotalSolutionCost() {
 template<class ProblemState>
 inline void ASearch<ProblemState>::TracebackSolution() {
 	Node * tempNode = goalNode;
+	stack<Node*> printSolution;
 	while (tempNode) {
-		tempNode->currentState.PrintState();
+		printSolution.push(tempNode);
 		tempNode = tempNode->parent;
+	}
+
+	while (!printSolution.empty()) {
+		printSolution.top()->currentState.PrintState();
+		printSolution.pop();
 	}
 }
 

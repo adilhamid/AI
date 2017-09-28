@@ -13,6 +13,7 @@ Node::Node() {
 	gCost = 0.0;
 	hCost = 0.0;
 	totalCost = 0.0;
+	depth = 0;
 
 }
 

@@ -14,7 +14,11 @@
 class BlocksWorldProblem {
 
 private:
-	float HeuristicsOneCost(BlocksWorldProblem currentState);
+	float HeuristicsOneCost(BlocksWorldProblem);
+	float HeuristicsTwoCost(BlocksWorldProblem);
+	float HeuristicsThreeCost(BlocksWorldProblem);
+	float HeuristicsFourCost(BlocksWorldProblem);
+	float HeuristicsFiveCost(BlocksWorldProblem);
 public:
 	//This represents the state of the problem
 	std::vector<char> *stackHolders;

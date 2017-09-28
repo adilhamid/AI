@@ -19,6 +19,8 @@ public:
 	Node* parent;
 	Node *child;
 
+	int depth;
+
 	float totalCost; // g(n) + h(n)
 	float gCost; // g(n) --> Actual Path Cost
 	float hCost; // h(n) --> Heuristics Functional Cost
