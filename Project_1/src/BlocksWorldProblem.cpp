@@ -183,8 +183,10 @@ float BlocksWorldProblem::HeuristicsEstimateCost(BlocksWorldProblem goalState) {
 
 // Use Different Heuristics for solving the problem
 	//float h1 = HeuristicsOneCost(goalState);
-	float h2 = HeuristicsTwoCost(goalState);
-	return h2;
+	//float h2 = HeuristicsTwoCost(goalState);
+
+	float h3 = HeuristicsThreeCost(goalState);
+	return h3;
 }
 
 void BlocksWorldProblem::PrintState() {
@@ -241,25 +243,63 @@ float BlocksWorldProblem::HeuristicsTwoCost(
 	return h2Cost;
 }
 
-	float BlocksWorldProblem::HeuristicsThreeCost(
-			BlocksWorldProblem blocksWorldProblem) {
-		return 0.0;
-	}
+float BlocksWorldProblem::HeuristicsThreeCost(
+		BlocksWorldProblem blocksWorldProblem) {
+	int h3Cost = 0;
 
-	float BlocksWorldProblem::HeuristicsFourCost(
-			BlocksWorldProblem blocksWorldProblem) {
-		return 0.0;
-	}
+	int numBlocksOnce = 0;
+	int numBlocksTwice = 0;
 
-	float BlocksWorldProblem::HeuristicsFiveCost(
-			BlocksWorldProblem blocksWorldProblem) {
-		return 0.0;
+	for (int i = 1; i < blocksWorldProblem.stackHolders[0].size(); i++) {
+		if (blocksWorldProblem.stackHolders[0][i]
+				!= blocksWorldProblem.stackHolders[0][i - 1] -1) {
+			numBlocksTwice += 1;
+		}
 	}
+	// For other stacks
+	for (int cntStack = 1; cntStack < numStacks; cntStack++) {
+		for (int cntBlock = blocksWorldProblem.stackHolders[cntStack].size()
+				- 1; cntBlock >= 1; cntBlock--) {
 
-	BlocksWorldProblem::~BlocksWorldProblem()
-	{
+			char top = blocksWorldProblem.stackHolders[cntStack][cntBlock];
+			char lower = blocksWorldProblem.stackHolders[cntStack][cntBlock-1];
+			char checked = blocksWorldProblem.stackHolders[cntStack][cntBlock] - 1 ;
+
+			cout << "Here " << top << " "<<  lower << " " << checked <<endl;
+
+			if (blocksWorldProblem.stackHolders[cntStack][cntBlock]
+					!= blocksWorldProblem.stackHolders[cntStack][cntBlock-1]
+							+ 1) {
+				numBlocksOnce += 1;
+			} else if (blocksWorldProblem.stackHolders[cntStack][cntBlock]
+					== blocksWorldProblem.stackHolders[cntStack][cntBlock-1]
+							+ 1) {
+				numBlocksTwice += 1;
+			}
+			else{
+				numBlocksOnce ++;
+			}
+
+		}
+	}
+	cout <<numBlocksOnce << " " <<numBlocksTwice <<endl;
+	h3Cost += (2*numBlocksOnce + 4*numBlocksTwice);
+	return h3Cost ;
+}
+
+float BlocksWorldProblem::HeuristicsFourCost(
+		BlocksWorldProblem blocksWorldProblem) {
+	return 0.0;
+}
+
+float BlocksWorldProblem::HeuristicsFiveCost(
+		BlocksWorldProblem blocksWorldProblem) {
+	return 0.0;
+}
+
+BlocksWorldProblem::~BlocksWorldProblem() {
 // TODO Auto-generated destructor stub
-	}
+}
 
 int main(int argc, char* argv[]) {
 
@@ -284,17 +324,16 @@ int main(int argc, char* argv[]) {
 		resultVal = blocksworld.ASearchExecute();
 		totalGoalTests++;
 
-	}while (resultVal.resultState
+	} while (resultVal.resultState
 			== ASearch<BlocksWorldProblem>::STATE_SEARCHING);
 
-	if (resultVal.resultState
-			== ASearch<BlocksWorldProblem>::STATE_GOAL) {
+	if (resultVal.resultState == ASearch<BlocksWorldProblem>::STATE_GOAL) {
 		cout << "Goal State Found " << endl;
 		cout << "Success!! depth = " << resultVal.depthOfGoalState
-		<< ", Total Goal Tests = " << totalGoalTests
-		<< ", Maximum Queue Size= " << resultVal.maxQueueSize
-		<< ", Total Cost = "
-		<< blocksworld.GetTotalSolutionCost() << endl;
+				<< ", Total Goal Tests = " << totalGoalTests
+				<< ", Maximum Queue Size= " << resultVal.maxQueueSize
+				<< ", Total Cost = " << blocksworld.GetTotalSolutionCost()
+				<< endl;
 
 		blocksworld.TracebackSolution();
 	} else {
