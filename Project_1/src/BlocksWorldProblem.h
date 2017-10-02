@@ -13,12 +13,11 @@
 
 class BlocksWorldProblem {
 
-private:
+public:
 	float HeuristicsOneCost();
 	float HeuristicsTwoCost(BlocksWorldProblem);
 	float HeuristicsThreeCost(BlocksWorldProblem);
-	float HeuristicsFourCost(BlocksWorldProblem);
-	float HeuristicsFiveCost(BlocksWorldProblem);
+
 public:
 	//This represents the state of the problem
 	std::vector<char> *stackHolders;

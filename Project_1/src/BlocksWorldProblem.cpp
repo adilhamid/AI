@@ -49,11 +49,20 @@ BlocksWorldProblem ProblemGenerator() {
 	cout << "Initial State " << endl;
 	BlocksWorldProblem initialState(numStacks, numBlocks);
 
-//	initialState.stackHolders[0].push_back('B');
-//	initialState.stackHolders[1].push_back('C');
+//	initialState.stackHolders[0].push_back('D');
 //	initialState.stackHolders[1].push_back('E');
-//	initialState.stackHolders[2].push_back('A');
-//	initialState.stackHolders[2].push_back('D');
+//	initialState.stackHolders[1].push_back('F');
+//	initialState.stackHolders[1].push_back('I');
+//	initialState.stackHolders[1].push_back('J');
+//
+//	initialState.stackHolders[2].push_back('B');
+//	initialState.stackHolders[2].push_back('G');
+//
+//	initialState.stackHolders[3].push_back('C');
+//	initialState.stackHolders[3].push_back('H');
+//
+//	initialState.stackHolders[4].push_back('A');
+//
 //	return initialState;
 
 	int totalStacks = numStacks;
@@ -188,7 +197,7 @@ float BlocksWorldProblem::HeuristicsEstimateCost(BlocksWorldProblem goalState) {
 	float totalHCost = 0;
 	float h1 = this->HeuristicsOneCost();
 	float h3 = HeuristicsThreeCost(goalState);
-	totalHCost = 3 * h1 + h3 ;
+	totalHCost = h1 + h3;
 	return totalHCost;
 }
 
