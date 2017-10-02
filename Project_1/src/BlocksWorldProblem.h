@@ -14,7 +14,7 @@
 class BlocksWorldProblem {
 
 private:
-	float HeuristicsOneCost(BlocksWorldProblem);
+	float HeuristicsOneCost();
 	float HeuristicsTwoCost(BlocksWorldProblem);
 	float HeuristicsThreeCost(BlocksWorldProblem);
 	float HeuristicsFourCost(BlocksWorldProblem);

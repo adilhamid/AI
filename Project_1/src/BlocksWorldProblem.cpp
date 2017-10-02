@@ -37,7 +37,7 @@ void swap(char *a, char *b) {
 	*b = temp;
 }
 // A function to generate a random permutation of arr[]
-void randomize(vector<char> arr, int n) {
+void randomize(vector<char>& arr, int n) {
 	srand(time(NULL));
 	for (int i = n - 1; i > 0; i--) {
 		int j = rand() % (i + 1);
@@ -185,8 +185,11 @@ float BlocksWorldProblem::HeuristicsEstimateCost(BlocksWorldProblem goalState) {
 	//float h1 = HeuristicsOneCost(goalState);
 	//float h2 = HeuristicsTwoCost(goalState);
 
+	float totalHCost = 0;
+	float h1 = this->HeuristicsOneCost();
 	float h3 = HeuristicsThreeCost(goalState);
-	return h3;
+	totalHCost = 3 * h1 + h3 ;
+	return totalHCost;
 }
 
 void BlocksWorldProblem::PrintState() {
@@ -200,7 +203,7 @@ void BlocksWorldProblem::PrintState() {
 	cout << endl;
 }
 // get the cost of misplaced blocks on the stacks
-float BlocksWorldProblem::HeuristicsOneCost(BlocksWorldProblem goalState) {
+float BlocksWorldProblem::HeuristicsOneCost() {
 	int h1Val = 0;
 // Number of elements present in the First Stack + misplaced stacks
 	h1Val += numBlocks - this->stackHolders[0].size();
@@ -250,51 +253,45 @@ float BlocksWorldProblem::HeuristicsThreeCost(
 	int numBlocksOnce = 0;
 	int numBlocksTwice = 0;
 
+	bool movFlag = 0;
+
 	for (int i = 1; i < blocksWorldProblem.stackHolders[0].size(); i++) {
-		if (blocksWorldProblem.stackHolders[0][i]
-				!= blocksWorldProblem.stackHolders[0][i - 1] -1) {
-			numBlocksTwice += 1;
-		}
-	}
-	// For other stacks
-	for (int cntStack = 1; cntStack < numStacks; cntStack++) {
-		for (int cntBlock = blocksWorldProblem.stackHolders[cntStack].size()
-				- 1; cntBlock >= 1; cntBlock--) {
 
-			char top = blocksWorldProblem.stackHolders[cntStack][cntBlock];
-			char lower = blocksWorldProblem.stackHolders[cntStack][cntBlock-1];
-			char checked = blocksWorldProblem.stackHolders[cntStack][cntBlock] - 1 ;
-
-			cout << "Here " << top << " "<<  lower << " " << checked <<endl;
-
-			if (blocksWorldProblem.stackHolders[cntStack][cntBlock]
-					!= blocksWorldProblem.stackHolders[cntStack][cntBlock-1]
-							+ 1) {
+		if (blocksWorldProblem.stackHolders[0][i - 1]
+				!= blocksWorldProblem.stackHolders[0][i] - 1) {
+			movFlag = 1;
+			if (i == 1) {
 				numBlocksOnce += 1;
-			} else if (blocksWorldProblem.stackHolders[cntStack][cntBlock]
-					== blocksWorldProblem.stackHolders[cntStack][cntBlock-1]
-							+ 1) {
+			}
+			numBlocksOnce += 1;
+		} else {
+			if (movFlag) {
 				numBlocksTwice += 1;
 			}
-			else{
-				numBlocksOnce ++;
-			}
-
 		}
 	}
-	cout <<numBlocksOnce << " " <<numBlocksTwice <<endl;
-	h3Cost += (2*numBlocksOnce + 4*numBlocksTwice);
-	return h3Cost ;
-}
 
-float BlocksWorldProblem::HeuristicsFourCost(
-		BlocksWorldProblem blocksWorldProblem) {
-	return 0.0;
-}
-
-float BlocksWorldProblem::HeuristicsFiveCost(
-		BlocksWorldProblem blocksWorldProblem) {
-	return 0.0;
+	// For other stacks
+	for (int cntStack = 1; cntStack < numStacks; cntStack++) {
+		movFlag = false;
+		for (int i = 1; i < blocksWorldProblem.stackHolders[cntStack].size();
+				i++) {
+			if (blocksWorldProblem.stackHolders[cntStack][i - 1]
+					!= blocksWorldProblem.stackHolders[cntStack][i] + 1) {
+				movFlag = 1;
+				if (i == 1) {
+					numBlocksOnce += 1;
+				}
+				numBlocksOnce += 1;
+			} else {
+				if (movFlag) {
+					numBlocksTwice += 1;
+				}
+			}
+		}
+	}
+	h3Cost += (2 * numBlocksOnce + 4 * numBlocksTwice);
+	return h3Cost;
 }
 
 BlocksWorldProblem::~BlocksWorldProblem() {
@@ -309,6 +306,7 @@ int main(int argc, char* argv[]) {
 
 	// Starting the initial state and goal state
 	BlocksWorldProblem initialState = ProblemGenerator();
+
 	BlocksWorldProblem goalState = SetGoalState();
 
 	// Initialize the blocksworld A* Search
@@ -339,7 +337,7 @@ int main(int argc, char* argv[]) {
 	} else {
 		cout << "Could not found the goal due to time out" << endl;
 	}
-	cout << "Done and dusted " << endl;
+	cout << "Done and Nailed It " << endl;
 	return 0;
 
 }

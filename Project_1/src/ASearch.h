@@ -13,6 +13,7 @@
 #include <algorithm>
 #include <iostream>
 #include <unordered_set>
+#include <string>
 
 #include "BlocksWorldProblem.h"
 #include "Node.h"
@@ -49,10 +50,10 @@ public:
 	std::vector<Node*> frontier;
 
 	std::vector<Node *> successors;
-	std::vector<Node *> exploredSet;
+	//std::vector<Node *> exploredSet;
 
 	//New Explored Set Functionality
-	//std::unordered_set<string> exploredStateSet;
+	std::unordered_set<string> exploredStateSet;
 
 	ASearcReturnVal returnAsearchVal;
 
@@ -164,18 +165,13 @@ inline void ASearch<ProblemState>::deleteProcessedNodes() {
 	frontier.clear();
 
 	//Delete the closeList of Nodes
-	for (auto val : exploredSet) {
-		Node * temp = val;
-		deleteNode(temp);
-	}
-	exploredSet.clear();
-
-//	// Deleting the explored States
-//	for (auto val : exploredStateSet) {
+//	for (auto val : exploredSet) {
 //		Node * temp = val;
 //		deleteNode(temp);
 //	}
-//	exploredStateSet.clear();
+//	exploredSet.clear();
+
+	exploredStateSet.clear();
 
 	//Delete the goal Node
 	deleteNode(goalNode);
@@ -196,9 +192,6 @@ inline string ASearch<ProblemState>::getHashCode(
 		}
 		result += ",";
 	}
-
-	cout << "HasCoding State " << endl;
-
 	return result;
 }
 
@@ -292,25 +285,25 @@ inline ASearcReturnVal ASearch<ProblemState>::ASearchExecute() {
 				}
 
 				//Checking the Explored Nodes
-				auto exploredIter = exploredSet.begin();
-				for (; exploredIter != exploredSet.end(); exploredIter++) {
-					if ((*exploredIter)->currentState.IsIdenticalState(
-							(*successorIter)->currentState)) {
-						break;
-					}
-				}
-				if (exploredIter != exploredSet.end()) {
-					if ((*exploredIter)->gCost <= updatedGCost) {
-						deleteNode(*successorIter);
-						continue;
-					}
-				}
-
-				// Enhanced way of comparing the results
-//				if( exploredStateSet.find( getHashCode((*successorIter)->currentState)) != exploredStateSet.end()){
-//					deleteNode(*successorIter);
-//					continue;
+//				auto exploredIter = exploredSet.begin();
+//				for (; exploredIter != exploredSet.end(); exploredIter++) {
+//					if ((*exploredIter)->currentState.IsIdenticalState(
+//							(*successorIter)->currentState)) {
+//						break;
+//					}
 //				}
+//				if (exploredIter != exploredSet.end()) {
+//					if ((*exploredIter)->gCost <= updatedGCost) {
+//						deleteNode(*successorIter);
+//						continue;
+//					}
+//				}
+
+//				 Enhanced way of comparing the results
+				if( exploredStateSet.find( getHashCode((*successorIter)->currentState)) != exploredStateSet.end()){
+					deleteNode(*successorIter);
+					continue;
+				}
 
 				// End of Checking the already present states
 
@@ -319,17 +312,17 @@ inline ASearcReturnVal ASearch<ProblemState>::ASearchExecute() {
 				(*successorIter)->gCost = updatedGCost;
 				(*successorIter)->hCost =
 						(*successorIter)->currentState.HeuristicsEstimateCost(
-								goalNode->currentState);
+								(*successorIter)->currentState);
 				(*successorIter)->totalCost = (*successorIter)->gCost
 						+ (*successorIter)->hCost;
 				(*successorIter)->depth = nodePop->depth + 1;
 
 				// Remove from explored Node as it is visited again and updated
-				if (exploredIter != exploredSet.end()) {
-					cout << "I am weird and i go here as well " << endl;
-					deleteNode((*exploredIter));
-					exploredSet.erase(exploredIter);
-				}
+//				if (exploredIter != exploredSet.end()) {
+//					cout << "I am weird and i go here as well " << endl;
+//					deleteNode((*exploredIter));
+//					exploredSet.erase(exploredIter);
+//				}
 
 				// If the node is present in the frontier also then we need to update the same
 				if (frontierIter != frontier.end()) {
@@ -345,7 +338,8 @@ inline ASearcReturnVal ASearch<ProblemState>::ASearchExecute() {
 
 			}
 
-			exploredSet.push_back(nodePop);
+//			exploredSet.push_back(nodePop);
+			exploredStateSet.insert(getHashCode(nodePop->currentState));
 
 			if ((int) frontier.size() > maxQueueSize) {
 				maxQueueSize = frontier.size();
