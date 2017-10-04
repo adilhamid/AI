@@ -27,9 +27,6 @@ struct ASearcReturnVal {
 	int maxQueueSize;
 };
 
-//
-#define PQ
-
 template<class ProblemState> class ASearch {
 
 public:
@@ -67,7 +64,19 @@ public:
 		maxQueueSize = INT_MIN;
 	}
 
-	// Member Functions
+//	~ASearch(){
+//		if(startNode){
+//			deleteNode(startNode);
+//		}
+//		if(goalNode){
+//			deleteNode(goalNode);
+//		}
+//		if(currentNode){
+//			deleteNode(currentNode);
+//		}
+//	}
+
+// Member Functions
 	void InitProblemState(ProblemState& startState, ProblemState& goalState);
 	bool AddSuccessor(ProblemState &presentState);
 	bool AddSuccessorsInBulk(vector<BlocksWorldProblem>, Node*);
@@ -164,17 +173,14 @@ inline void ASearch<ProblemState>::deleteProcessedNodes() {
 	}
 	frontier.clear();
 
-	//Delete the closeList of Nodes
-//	for (auto val : exploredSet) {
-//		Node * temp = val;
-//		deleteNode(temp);
-//	}
-//	exploredSet.clear();
-
+//	Delete the closeList of Nodes
 	exploredStateSet.clear();
 
 	//Delete the goal Node
 	deleteNode(goalNode);
+
+	//Delete Current Node
+	deleteNode(currentNode);
 }
 
 template<class ProblemState>
@@ -237,8 +243,6 @@ inline ASearcReturnVal ASearch<ProblemState>::ASearchExecute() {
 		std::vector<BlocksWorldProblem> returnedSuccessors =
 				nodePop->currentState.GenerateSuccessors(nodePop->currentState);
 
-		//AddSuccessorsInBulk(returnedSuccessors, nodePop);
-
 		//Add the successors to the list
 		for (auto val : returnedSuccessors) {
 			AddSuccessor(val);
@@ -300,7 +304,9 @@ inline ASearcReturnVal ASearch<ProblemState>::ASearchExecute() {
 //				}
 
 //				 Enhanced way of comparing the results
-				if( exploredStateSet.find( getHashCode((*successorIter)->currentState)) != exploredStateSet.end()){
+				if (exploredStateSet.find(
+						getHashCode((*successorIter)->currentState))
+						!= exploredStateSet.end()) {
 					deleteNode(*successorIter);
 					continue;
 				}
@@ -349,9 +355,11 @@ inline ASearcReturnVal ASearch<ProblemState>::ASearchExecute() {
 	}
 
 //Write the Iterations Details about the explored Node
+#if 1
 	cout << "Iteration Number " << countSteps << ", Queue Size = "
 			<< frontier.size() << ", TotalCost(gCost+hCost) = "
 			<< nodePop->totalCost << ", Depth= " << nodePop->depth << endl;
+#endif
 
 	returnAsearchVal.depthOfGoalState = nodePop->depth;
 	returnAsearchVal.resultState = currStateVal;

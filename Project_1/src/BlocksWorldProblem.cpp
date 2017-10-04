@@ -13,13 +13,14 @@
 #include <assert.h>
 #include <ctime>
 
+#define MASS_RUN
+#undef MASS_RUN
+
 using namespace std;
 
 //Global Variables
-int numStacks = 3;
-int numBlocks = 5;
-int maxSteps = 100;
-int minSteps = 0;
+int numStacks;
+int numBlocks;
 
 BlocksWorldProblem SetGoalState() {
 	BlocksWorldProblem goalState(numStacks, numBlocks);
@@ -46,7 +47,7 @@ void randomize(vector<char>& arr, int n) {
 }
 
 BlocksWorldProblem ProblemGenerator() {
-	cout << "Initial State " << endl;
+
 	BlocksWorldProblem initialState(numStacks, numBlocks);
 
 //	initialState.stackHolders[0].push_back('D');
@@ -90,7 +91,11 @@ BlocksWorldProblem ProblemGenerator() {
 		}
 
 	}
+#ifndef MASS_RUN
+	cout << "Initial State " << endl;
 	initialState.PrintState();
+#endif
+
 	return initialState;
 }
 
@@ -137,7 +142,6 @@ void DeepCopyState(BlocksWorldProblem sourceState,
 std::vector<BlocksWorldProblem> BlocksWorldProblem::GenerateSuccessors(
 		BlocksWorldProblem currentState) {
 
-//	cout << "Generating the Successors" << endl;
 	vector<BlocksWorldProblem> returnVal;
 	for (int cntStack = 0; cntStack < numStacks; ++cntStack) {
 		if (currentState.stackHolders[cntStack].size() > 0) {
@@ -191,13 +195,13 @@ float BlocksWorldProblem::GetGCost(BlocksWorldProblem currentState) {
 float BlocksWorldProblem::HeuristicsEstimateCost(BlocksWorldProblem goalState) {
 
 // Use Different Heuristics for solving the problem
-	//float h1 = HeuristicsOneCost(goalState);
-	//float h2 = HeuristicsTwoCost(goalState);
 
 	float totalHCost = 0;
+	float w1 = 2; // Weight for the h1 heuristics
+
 	float h1 = this->HeuristicsOneCost();
 	float h3 = HeuristicsThreeCost(goalState);
-	totalHCost = h1 + h3;
+	totalHCost = w1 * h1 + h3;
 	return totalHCost;
 }
 
@@ -309,6 +313,71 @@ BlocksWorldProblem::~BlocksWorldProblem() {
 
 int main(int argc, char* argv[]) {
 
+#ifdef MASS_RUN // Mass run for calculating the averages
+	int numIterations = 100;
+	float averageGoalTests, avgMaximumQueueSize, avgSolutionPathLength;
+
+	for (int stacksCnt = 10; stacksCnt <= 10; ++stacksCnt) {
+
+		numStacks = stacksCnt;
+
+		for (int blocksCnt = 5; blocksCnt <= 10; ++blocksCnt) {
+			numBlocks = blocksCnt;
+			averageGoalTests = avgMaximumQueueSize = avgSolutionPathLength =
+					0.0;
+
+			for (int iter = 0; iter < numIterations; ++iter) {
+
+				// Starting the initial state and goal state
+				BlocksWorldProblem initialState = ProblemGenerator();
+
+				BlocksWorldProblem goalState = SetGoalState();
+
+				// Initialize the blocksworld A* Search
+				ASearch<BlocksWorldProblem> blocksworld;
+
+				blocksworld.InitProblemState(initialState, goalState);
+
+				int totalGoalTests = 0;
+				ASearcReturnVal resultVal;
+
+				//Searching algorithm starts
+				do {
+					resultVal = blocksworld.ASearchExecute();
+					totalGoalTests++;
+
+				} while (resultVal.resultState
+						== ASearch<BlocksWorldProblem>::STATE_SEARCHING);
+
+				if (resultVal.resultState
+						== ASearch<BlocksWorldProblem>::STATE_GOAL) {
+					averageGoalTests += totalGoalTests;
+					avgMaximumQueueSize += resultVal.maxQueueSize;
+					avgSolutionPathLength += blocksworld.GetTotalSolutionCost();
+
+				} else {
+					cout << "Could not found the goal due to time out" << endl;
+				}
+
+				blocksworld.deleteProcessedNodes();
+
+			}
+
+			// Calculate the averages and print for record keeping
+			averageGoalTests /= numIterations;
+			avgMaximumQueueSize /= numIterations;
+			avgSolutionPathLength /= numIterations;
+
+			cout << stacksCnt << " " << blocksCnt << " " << averageGoalTests
+					<< " " << avgMaximumQueueSize << " "
+					<< avgSolutionPathLength << endl;
+
+		}
+
+	}
+
+#else
+
 	cout << "Stacks and Blocks please" << endl;
 
 	cin >> numStacks >> numBlocks;
@@ -331,22 +400,24 @@ int main(int argc, char* argv[]) {
 		resultVal = blocksworld.ASearchExecute();
 		totalGoalTests++;
 
-	} while (resultVal.resultState
+	}while (resultVal.resultState
 			== ASearch<BlocksWorldProblem>::STATE_SEARCHING);
 
-	if (resultVal.resultState == ASearch<BlocksWorldProblem>::STATE_GOAL) {
+	if (resultVal.resultState
+			== ASearch<BlocksWorldProblem>::STATE_GOAL) {
 		cout << "Goal State Found " << endl;
 		cout << "Success!! depth = " << resultVal.depthOfGoalState
-				<< ", Total Goal Tests = " << totalGoalTests
-				<< ", Maximum Queue Size= " << resultVal.maxQueueSize
-				<< ", Total Cost = " << blocksworld.GetTotalSolutionCost()
-				<< endl;
-
+		<< ", Total Goal Tests = " << totalGoalTests
+		<< ", Maximum Queue Size= "
+		<< resultVal.maxQueueSize << ", Total Cost = "
+		<< blocksworld.GetTotalSolutionCost() << endl;
 		blocksworld.TracebackSolution();
 	} else {
 		cout << "Could not found the goal due to time out" << endl;
 	}
 	cout << "Done and Nailed It " << endl;
-	return 0;
 
+#endif
+
+	return 0;
 }
