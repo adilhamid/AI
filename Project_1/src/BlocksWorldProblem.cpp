@@ -19,8 +19,8 @@
 using namespace std;
 
 //Global Variables
-int numStacks;
-int numBlocks;
+int numStacks = 0;
+int numBlocks = 0;
 
 BlocksWorldProblem SetGoalState() {
 	BlocksWorldProblem goalState(numStacks, numBlocks);

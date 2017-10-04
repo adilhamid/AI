@@ -14,6 +14,7 @@
 #include <iostream>
 #include <unordered_set>
 #include <string>
+#include <limits.h>
 
 #include "BlocksWorldProblem.h"
 #include "Node.h"
@@ -50,7 +51,7 @@ public:
 	//std::vector<Node *> exploredSet;
 
 	//New Explored Set Functionality
-	std::unordered_set<string> exploredStateSet;
+	unordered_set<string> exploredStateSet;
 
 	ASearcReturnVal returnAsearchVal;
 
@@ -192,7 +193,7 @@ inline string ASearch<ProblemState>::getHashCode(
 		BlocksWorldProblem blocksWorldProblem) {
 
 	string result = "";
-	for (int i = 0; i < numStacks; i++) {
+	for (int i = 0; i < blocksWorldProblem.stackHolders->size(); i++) {
 		for (int j = 0; j < blocksWorldProblem.stackHolders[i].size(); j++) {
 			result += blocksWorldProblem.stackHolders[i][j];
 		}
