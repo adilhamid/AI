@@ -35,7 +35,6 @@ public:
 	void PrintState();
 	~BlocksWorldProblem();
 
-
 };
 
 #endif /* STATE_H_ */

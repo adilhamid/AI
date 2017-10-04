@@ -324,7 +324,7 @@ int main(int argc, char* argv[]) {
 		for (int blocksCnt = 5; blocksCnt <= 10; ++blocksCnt) {
 			numBlocks = blocksCnt;
 			averageGoalTests = avgMaximumQueueSize = avgSolutionPathLength =
-					0.0;
+			0.0;
 
 			for (int iter = 0; iter < numIterations; ++iter) {
 
@@ -346,7 +346,7 @@ int main(int argc, char* argv[]) {
 					resultVal = blocksworld.ASearchExecute();
 					totalGoalTests++;
 
-				} while (resultVal.resultState
+				}while (resultVal.resultState
 						== ASearch<BlocksWorldProblem>::STATE_SEARCHING);
 
 				if (resultVal.resultState
@@ -369,8 +369,8 @@ int main(int argc, char* argv[]) {
 			avgSolutionPathLength /= numIterations;
 
 			cout << stacksCnt << " " << blocksCnt << " " << averageGoalTests
-					<< " " << avgMaximumQueueSize << " "
-					<< avgSolutionPathLength << endl;
+			<< " " << avgMaximumQueueSize << " "
+			<< avgSolutionPathLength << endl;
 
 		}
 
@@ -378,9 +378,18 @@ int main(int argc, char* argv[]) {
 
 #else
 
-	cout << "Stacks and Blocks please" << endl;
+	if (argc != 3) {
+		cout << "Please give appropriate number of arguments" << endl;
+		cout << argc<<endl;
+		return -1;
+	}
 
-	cin >> numStacks >> numBlocks;
+	cout << argv[1] << " "<<argv[2] <<endl;
+	numStacks = atoi(argv[1]);
+	numBlocks = atoi(argv[2]);
+
+	cout << "Number of Stacks:" << numStacks << " Number of Blocks: "
+			<< numBlocks << endl;
 
 	// Starting the initial state and goal state
 	BlocksWorldProblem initialState = ProblemGenerator();
@@ -400,22 +409,21 @@ int main(int argc, char* argv[]) {
 		resultVal = blocksworld.ASearchExecute();
 		totalGoalTests++;
 
-	}while (resultVal.resultState
+	} while (resultVal.resultState
 			== ASearch<BlocksWorldProblem>::STATE_SEARCHING);
 
-	if (resultVal.resultState
-			== ASearch<BlocksWorldProblem>::STATE_GOAL) {
+	if (resultVal.resultState == ASearch<BlocksWorldProblem>::STATE_GOAL) {
 		cout << "Goal State Found " << endl;
 		cout << "Success!! depth = " << resultVal.depthOfGoalState
-		<< ", Total Goal Tests = " << totalGoalTests
-		<< ", Maximum Queue Size= "
-		<< resultVal.maxQueueSize << ", Total Cost = "
-		<< blocksworld.GetTotalSolutionCost() << endl;
+				<< ", Total Goal Tests = " << totalGoalTests
+				<< ", Maximum Queue Size= " << resultVal.maxQueueSize
+				<< ", Total Cost = " << blocksworld.GetTotalSolutionCost()
+				<< endl;
 		blocksworld.TracebackSolution();
 	} else {
 		cout << "Could not found the goal due to time out" << endl;
 	}
-	cout << "Done and Nailed It " << endl;
+	cout << "Done and Nailed It " << endl <<endl;
 
 #endif
 

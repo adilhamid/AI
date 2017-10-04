@@ -193,7 +193,8 @@ inline string ASearch<ProblemState>::getHashCode(
 		BlocksWorldProblem blocksWorldProblem) {
 
 	string result = "";
-	for (int i = 0; i < numStacks ; i++) {
+
+	for (int i = 0; i < blocksWorldProblem.numStacks ; i++) {
 		for (int j = 0; j < blocksWorldProblem.stackHolders[i].size(); j++) {
 			result += blocksWorldProblem.stackHolders[i][j];
 		}
