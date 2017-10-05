@@ -1,0 +1,975 @@
+15 28
+Number of Stacks:15 Number of Blocks: 28
+Initial State 
+Stack 0: H O R Q I J K X E U M P A S Z T D \ L W V F B C G 
+Stack 1: [ N Y 
+Stack 2: 
+Stack 3: 
+Stack 4: 
+Stack 5: 
+Stack 6: 
+Stack 7: 
+Stack 8: 
+Stack 9: 
+Stack 10: 
+Stack 11: 
+Stack 12: 
+Stack 13: 
+Stack 14: 
+
+Iteration Number 1, Queue Size = 28, TotalCost(gCost+hCost) = 56, Depth= 0
+Iteration Number 2, Queue Size = 55, TotalCost(gCost+hCost) = 117, Depth= 1
+Iteration Number 3, Queue Size = 96, TotalCost(gCost+hCost) = 114, Depth= 2
+Iteration Number 4, Queue Size = 137, TotalCost(gCost+hCost) = 113, Depth= 3
+Iteration Number 5, Queue Size = 178, TotalCost(gCost+hCost) = 112, Depth= 4
+Iteration Number 6, Queue Size = 233, TotalCost(gCost+hCost) = 111, Depth= 5
+Iteration Number 7, Queue Size = 302, TotalCost(gCost+hCost) = 110, Depth= 6
+Iteration Number 8, Queue Size = 385, TotalCost(gCost+hCost) = 109, Depth= 7
+Iteration Number 9, Queue Size = 482, TotalCost(gCost+hCost) = 108, Depth= 8
+Iteration Number 10, Queue Size = 593, TotalCost(gCost+hCost) = 107, Depth= 9
+Iteration Number 11, Queue Size = 718, TotalCost(gCost+hCost) = 106, Depth= 10
+Iteration Number 12, Queue Size = 857, TotalCost(gCost+hCost) = 105, Depth= 11
+Iteration Number 13, Queue Size = 996, TotalCost(gCost+hCost) = 104, Depth= 12
+Iteration Number 14, Queue Size = 1135, TotalCost(gCost+hCost) = 103, Depth= 13
+Iteration Number 15, Queue Size = 1288, TotalCost(gCost+hCost) = 102, Depth= 14
+Iteration Number 16, Queue Size = 1455, TotalCost(gCost+hCost) = 101, Depth= 15
+Iteration Number 17, Queue Size = 1622, TotalCost(gCost+hCost) = 100, Depth= 16
+Iteration Number 18, Queue Size = 1789, TotalCost(gCost+hCost) = 99, Depth= 17
+Iteration Number 19, Queue Size = 1970, TotalCost(gCost+hCost) = 98, Depth= 18
+Iteration Number 20, Queue Size = 2151, TotalCost(gCost+hCost) = 95, Depth= 19
+Iteration Number 21, Queue Size = 2332, TotalCost(gCost+hCost) = 92, Depth= 20
+Iteration Number 22, Queue Size = 2513, TotalCost(gCost+hCost) = 91, Depth= 21
+Iteration Number 23, Queue Size = 2708, TotalCost(gCost+hCost) = 90, Depth= 22
+Iteration Number 24, Queue Size = 2903, TotalCost(gCost+hCost) = 89, Depth= 23
+Iteration Number 25, Queue Size = 3098, TotalCost(gCost+hCost) = 86, Depth= 24
+Iteration Number 26, Queue Size = 3292, TotalCost(gCost+hCost) = 85, Depth= 25
+Iteration Number 27, Queue Size = 3487, TotalCost(gCost+hCost) = 82, Depth= 26
+Iteration Number 28, Queue Size = 3667, TotalCost(gCost+hCost) = 83, Depth= 27
+Iteration Number 29, Queue Size = 3862, TotalCost(gCost+hCost) = 82, Depth= 28
+Iteration Number 30, Queue Size = 4057, TotalCost(gCost+hCost) = 81, Depth= 29
+Iteration Number 31, Queue Size = 4238, TotalCost(gCost+hCost) = 80, Depth= 30
+Iteration Number 32, Queue Size = 4405, TotalCost(gCost+hCost) = 79, Depth= 31
+Iteration Number 33, Queue Size = 4572, TotalCost(gCost+hCost) = 78, Depth= 32
+Iteration Number 34, Queue Size = 4739, TotalCost(gCost+hCost) = 77, Depth= 33
+Iteration Number 35, Queue Size = 4892, TotalCost(gCost+hCost) = 76, Depth= 34
+Iteration Number 36, Queue Size = 5045, TotalCost(gCost+hCost) = 75, Depth= 35
+Iteration Number 37, Queue Size = 5198, TotalCost(gCost+hCost) = 74, Depth= 36
+Iteration Number 38, Queue Size = 5351, TotalCost(gCost+hCost) = 73, Depth= 37
+Iteration Number 39, Queue Size = 5504, TotalCost(gCost+hCost) = 72, Depth= 38
+Iteration Number 40, Queue Size = 5643, TotalCost(gCost+hCost) = 71, Depth= 39
+Iteration Number 41, Queue Size = 5768, TotalCost(gCost+hCost) = 70, Depth= 40
+Iteration Number 42, Queue Size = 5893, TotalCost(gCost+hCost) = 69, Depth= 41
+Iteration Number 43, Queue Size = 6018, TotalCost(gCost+hCost) = 68, Depth= 42
+Iteration Number 44, Queue Size = 6129, TotalCost(gCost+hCost) = 67, Depth= 43
+Iteration Number 45, Queue Size = 6226, TotalCost(gCost+hCost) = 66, Depth= 44
+Iteration Number 46, Queue Size = 6323, TotalCost(gCost+hCost) = 65, Depth= 45
+Iteration Number 47, Queue Size = 6420, TotalCost(gCost+hCost) = 64, Depth= 46
+Iteration Number 48, Queue Size = 6503, TotalCost(gCost+hCost) = 63, Depth= 47
+Iteration Number 49, Queue Size = 6586, TotalCost(gCost+hCost) = 62, Depth= 48
+Iteration Number 50, Queue Size = 6655, TotalCost(gCost+hCost) = 61, Depth= 49
+Iteration Number 51, Queue Size = 6710, TotalCost(gCost+hCost) = 60, Depth= 50
+Iteration Number 52, Queue Size = 6751, TotalCost(gCost+hCost) = 59, Depth= 51
+Iteration Number 53, Queue Size = 6792, TotalCost(gCost+hCost) = 58, Depth= 52
+Iteration Number 54, Queue Size = 6819, TotalCost(gCost+hCost) = 57, Depth= 53
+Iteration Number 55, Queue Size = 6832, TotalCost(gCost+hCost) = 56, Depth= 54
+Iteration Number 56, Queue Size = 6831, TotalCost(gCost+hCost) = 55, Depth= 55
+Goal State Found 
+Success!! depth = 55, Total Goal Tests = 56, Maximum Queue Size= 6832, Total Cost = 55
+Stack 0: H O R Q I J K X E U M P A S Z T D \ L W V F B C G 
+Stack 1: [ N Y 
+Stack 2: 
+Stack 3: 
+Stack 4: 
+Stack 5: 
+Stack 6: 
+Stack 7: 
+Stack 8: 
+Stack 9: 
+Stack 10: 
+Stack 11: 
+Stack 12: 
+Stack 13: 
+Stack 14: 
+
+Stack 0: H O R Q I J K X E U M P A S Z T D \ L W V F B C 
+Stack 1: [ N Y 
+Stack 2: G 
+Stack 3: 
+Stack 4: 
+Stack 5: 
+Stack 6: 
+Stack 7: 
+Stack 8: 
+Stack 9: 
+Stack 10: 
+Stack 11: 
+Stack 12: 
+Stack 13: 
+Stack 14: 
+
+Stack 0: H O R Q I J K X E U M P A S Z T D \ L W V F B 
+Stack 1: [ N Y 
+Stack 2: G 
+Stack 3: C 
+Stack 4: 
+Stack 5: 
+Stack 6: 
+Stack 7: 
+Stack 8: 
+Stack 9: 
+Stack 10: 
+Stack 11: 
+Stack 12: 
+Stack 13: 
+Stack 14: 
+
+Stack 0: H O R Q I J K X E U M P A S Z T D \ L W V F 
+Stack 1: [ N Y 
+Stack 2: G 
+Stack 3: C B 
+Stack 4: 
+Stack 5: 
+Stack 6: 
+Stack 7: 
+Stack 8: 
+Stack 9: 
+Stack 10: 
+Stack 11: 
+Stack 12: 
+Stack 13: 
+Stack 14: 
+
+Stack 0: H O R Q I J K X E U M P A S Z T D \ L W V 
+Stack 1: [ N Y 
+Stack 2: G F 
+Stack 3: C B 
+Stack 4: 
+Stack 5: 
+Stack 6: 
+Stack 7: 
+Stack 8: 
+Stack 9: 
+Stack 10: 
+Stack 11: 
+Stack 12: 
+Stack 13: 
+Stack 14: 
+
+Stack 0: H O R Q I J K X E U M P A S Z T D \ L W 
+Stack 1: [ N Y 
+Stack 2: G F 
+Stack 3: C B 
+Stack 4: V 
+Stack 5: 
+Stack 6: 
+Stack 7: 
+Stack 8: 
+Stack 9: 
+Stack 10: 
+Stack 11: 
+Stack 12: 
+Stack 13: 
+Stack 14: 
+
+Stack 0: H O R Q I J K X E U M P A S Z T D \ L 
+Stack 1: [ N Y 
+Stack 2: G F 
+Stack 3: C B 
+Stack 4: V 
+Stack 5: W 
+Stack 6: 
+Stack 7: 
+Stack 8: 
+Stack 9: 
+Stack 10: 
+Stack 11: 
+Stack 12: 
+Stack 13: 
+Stack 14: 
+
+Stack 0: H O R Q I J K X E U M P A S Z T D \ 
+Stack 1: [ N Y 
+Stack 2: G F 
+Stack 3: C B 
+Stack 4: V 
+Stack 5: W 
+Stack 6: L 
+Stack 7: 
+Stack 8: 
+Stack 9: 
+Stack 10: 
+Stack 11: 
+Stack 12: 
+Stack 13: 
+Stack 14: 
+
+Stack 0: H O R Q I J K X E U M P A S Z T D 
+Stack 1: [ N Y 
+Stack 2: G F 
+Stack 3: C B 
+Stack 4: V 
+Stack 5: W 
+Stack 6: L 
+Stack 7: \ 
+Stack 8: 
+Stack 9: 
+Stack 10: 
+Stack 11: 
+Stack 12: 
+Stack 13: 
+Stack 14: 
+
+Stack 0: H O R Q I J K X E U M P A S Z T 
+Stack 1: [ N Y 
+Stack 2: G F 
+Stack 3: C B 
+Stack 4: V 
+Stack 5: W 
+Stack 6: L 
+Stack 7: \ 
+Stack 8: D 
+Stack 9: 
+Stack 10: 
+Stack 11: 
+Stack 12: 
+Stack 13: 
+Stack 14: 
+
+Stack 0: H O R Q I J K X E U M P A S Z 
+Stack 1: [ N Y 
+Stack 2: G F 
+Stack 3: C B 
+Stack 4: V 
+Stack 5: W 
+Stack 6: L 
+Stack 7: \ 
+Stack 8: D 
+Stack 9: T 
+Stack 10: 
+Stack 11: 
+Stack 12: 
+Stack 13: 
+Stack 14: 
+
+Stack 0: H O R Q I J K X E U M P A S 
+Stack 1: [ N Y 
+Stack 2: G F 
+Stack 3: C B 
+Stack 4: V 
+Stack 5: W 
+Stack 6: L 
+Stack 7: \ 
+Stack 8: D 
+Stack 9: T 
+Stack 10: Z 
+Stack 11: 
+Stack 12: 
+Stack 13: 
+Stack 14: 
+
+Stack 0: H O R Q I J K X E U M P A 
+Stack 1: [ N Y 
+Stack 2: G F 
+Stack 3: C B 
+Stack 4: V 
+Stack 5: W 
+Stack 6: L 
+Stack 7: \ 
+Stack 8: D 
+Stack 9: T S 
+Stack 10: Z 
+Stack 11: 
+Stack 12: 
+Stack 13: 
+Stack 14: 
+
+Stack 0: H O R Q I J K X E U M P 
+Stack 1: [ N Y 
+Stack 2: G F 
+Stack 3: C B A 
+Stack 4: V 
+Stack 5: W 
+Stack 6: L 
+Stack 7: \ 
+Stack 8: D 
+Stack 9: T S 
+Stack 10: Z 
+Stack 11: 
+Stack 12: 
+Stack 13: 
+Stack 14: 
+
+Stack 0: H O R Q I J K X E U M 
+Stack 1: [ N Y 
+Stack 2: G F 
+Stack 3: C B A 
+Stack 4: V 
+Stack 5: W 
+Stack 6: L 
+Stack 7: \ 
+Stack 8: D 
+Stack 9: T S 
+Stack 10: Z 
+Stack 11: P 
+Stack 12: 
+Stack 13: 
+Stack 14: 
+
+Stack 0: H O R Q I J K X E U 
+Stack 1: [ N Y 
+Stack 2: G F 
+Stack 3: C B A 
+Stack 4: V 
+Stack 5: W 
+Stack 6: L 
+Stack 7: \ 
+Stack 8: D 
+Stack 9: T S 
+Stack 10: Z 
+Stack 11: P 
+Stack 12: M 
+Stack 13: 
+Stack 14: 
+
+Stack 0: H O R Q I J K X E 
+Stack 1: [ N Y 
+Stack 2: G F 
+Stack 3: C B A 
+Stack 4: V U 
+Stack 5: W 
+Stack 6: L 
+Stack 7: \ 
+Stack 8: D 
+Stack 9: T S 
+Stack 10: Z 
+Stack 11: P 
+Stack 12: M 
+Stack 13: 
+Stack 14: 
+
+Stack 0: H O R Q I J K X 
+Stack 1: [ N Y 
+Stack 2: G F E 
+Stack 3: C B A 
+Stack 4: V U 
+Stack 5: W 
+Stack 6: L 
+Stack 7: \ 
+Stack 8: D 
+Stack 9: T S 
+Stack 10: Z 
+Stack 11: P 
+Stack 12: M 
+Stack 13: 
+Stack 14: 
+
+Stack 0: H O R Q I J K 
+Stack 1: [ N Y 
+Stack 2: G F E 
+Stack 3: C B A 
+Stack 4: V U 
+Stack 5: W 
+Stack 6: L 
+Stack 7: \ 
+Stack 8: D 
+Stack 9: T S 
+Stack 10: Z 
+Stack 11: P 
+Stack 12: M 
+Stack 13: X 
+Stack 14: 
+
+Stack 0: H O R Q I J 
+Stack 1: [ N Y 
+Stack 2: G F E 
+Stack 3: C B A 
+Stack 4: V U 
+Stack 5: W 
+Stack 6: L K 
+Stack 7: \ 
+Stack 8: D 
+Stack 9: T S 
+Stack 10: Z 
+Stack 11: P 
+Stack 12: M 
+Stack 13: X 
+Stack 14: 
+
+Stack 0: H O R Q I 
+Stack 1: [ N Y 
+Stack 2: G F E 
+Stack 3: C B A 
+Stack 4: V U 
+Stack 5: W 
+Stack 6: L K J 
+Stack 7: \ 
+Stack 8: D 
+Stack 9: T S 
+Stack 10: Z 
+Stack 11: P 
+Stack 12: M 
+Stack 13: X 
+Stack 14: 
+
+Stack 0: H O R Q 
+Stack 1: [ N Y 
+Stack 2: G F E 
+Stack 3: C B A 
+Stack 4: V U 
+Stack 5: W 
+Stack 6: L K J I 
+Stack 7: \ 
+Stack 8: D 
+Stack 9: T S 
+Stack 10: Z 
+Stack 11: P 
+Stack 12: M 
+Stack 13: X 
+Stack 14: 
+
+Stack 0: H O R 
+Stack 1: [ N Y 
+Stack 2: G F E 
+Stack 3: C B A 
+Stack 4: V U 
+Stack 5: W 
+Stack 6: L K J I 
+Stack 7: \ 
+Stack 8: D 
+Stack 9: T S 
+Stack 10: Z 
+Stack 11: P 
+Stack 12: M 
+Stack 13: X 
+Stack 14: Q 
+
+Stack 0: H O 
+Stack 1: [ N Y 
+Stack 2: G F E 
+Stack 3: C B A 
+Stack 4: V U 
+Stack 5: W 
+Stack 6: L K J I 
+Stack 7: \ 
+Stack 8: D 
+Stack 9: T S R 
+Stack 10: Z 
+Stack 11: P 
+Stack 12: M 
+Stack 13: X 
+Stack 14: Q 
+
+Stack 0: H 
+Stack 1: [ N Y 
+Stack 2: G F E 
+Stack 3: C B A 
+Stack 4: V U 
+Stack 5: W 
+Stack 6: L K J I 
+Stack 7: \ 
+Stack 8: D 
+Stack 9: T S R 
+Stack 10: Z 
+Stack 11: P O 
+Stack 12: M 
+Stack 13: X 
+Stack 14: Q 
+
+Stack 0: H 
+Stack 1: [ N 
+Stack 2: G F E 
+Stack 3: C B A 
+Stack 4: V U 
+Stack 5: W 
+Stack 6: L K J I 
+Stack 7: \ 
+Stack 8: D 
+Stack 9: T S R 
+Stack 10: Z Y 
+Stack 11: P O 
+Stack 12: M 
+Stack 13: X 
+Stack 14: Q 
+
+Stack 0: H 
+Stack 1: [ 
+Stack 2: G F E 
+Stack 3: C B A 
+Stack 4: V U 
+Stack 5: W 
+Stack 6: L K J I 
+Stack 7: \ 
+Stack 8: D 
+Stack 9: T S R 
+Stack 10: Z Y 
+Stack 11: P O N 
+Stack 12: M 
+Stack 13: X 
+Stack 14: Q 
+
+Stack 0: 
+Stack 1: [ 
+Stack 2: G F E 
+Stack 3: C B A 
+Stack 4: V U 
+Stack 5: W 
+Stack 6: L K J I H 
+Stack 7: \ 
+Stack 8: D 
+Stack 9: T S R 
+Stack 10: Z Y 
+Stack 11: P O N 
+Stack 12: M 
+Stack 13: X 
+Stack 14: Q 
+
+Stack 0: A 
+Stack 1: [ 
+Stack 2: G F E 
+Stack 3: C B 
+Stack 4: V U 
+Stack 5: W 
+Stack 6: L K J I H 
+Stack 7: \ 
+Stack 8: D 
+Stack 9: T S R 
+Stack 10: Z Y 
+Stack 11: P O N 
+Stack 12: M 
+Stack 13: X 
+Stack 14: Q 
+
+Stack 0: A B 
+Stack 1: [ 
+Stack 2: G F E 
+Stack 3: C 
+Stack 4: V U 
+Stack 5: W 
+Stack 6: L K J I H 
+Stack 7: \ 
+Stack 8: D 
+Stack 9: T S R 
+Stack 10: Z Y 
+Stack 11: P O N 
+Stack 12: M 
+Stack 13: X 
+Stack 14: Q 
+
+Stack 0: A B C 
+Stack 1: [ 
+Stack 2: G F E 
+Stack 3: 
+Stack 4: V U 
+Stack 5: W 
+Stack 6: L K J I H 
+Stack 7: \ 
+Stack 8: D 
+Stack 9: T S R 
+Stack 10: Z Y 
+Stack 11: P O N 
+Stack 12: M 
+Stack 13: X 
+Stack 14: Q 
+
+Stack 0: A B C D 
+Stack 1: [ 
+Stack 2: G F E 
+Stack 3: 
+Stack 4: V U 
+Stack 5: W 
+Stack 6: L K J I H 
+Stack 7: \ 
+Stack 8: 
+Stack 9: T S R 
+Stack 10: Z Y 
+Stack 11: P O N 
+Stack 12: M 
+Stack 13: X 
+Stack 14: Q 
+
+Stack 0: A B C D E 
+Stack 1: [ 
+Stack 2: G F 
+Stack 3: 
+Stack 4: V U 
+Stack 5: W 
+Stack 6: L K J I H 
+Stack 7: \ 
+Stack 8: 
+Stack 9: T S R 
+Stack 10: Z Y 
+Stack 11: P O N 
+Stack 12: M 
+Stack 13: X 
+Stack 14: Q 
+
+Stack 0: A B C D E F 
+Stack 1: [ 
+Stack 2: G 
+Stack 3: 
+Stack 4: V U 
+Stack 5: W 
+Stack 6: L K J I H 
+Stack 7: \ 
+Stack 8: 
+Stack 9: T S R 
+Stack 10: Z Y 
+Stack 11: P O N 
+Stack 12: M 
+Stack 13: X 
+Stack 14: Q 
+
+Stack 0: A B C D E F G 
+Stack 1: [ 
+Stack 2: 
+Stack 3: 
+Stack 4: V U 
+Stack 5: W 
+Stack 6: L K J I H 
+Stack 7: \ 
+Stack 8: 
+Stack 9: T S R 
+Stack 10: Z Y 
+Stack 11: P O N 
+Stack 12: M 
+Stack 13: X 
+Stack 14: Q 
+
+Stack 0: A B C D E F G H 
+Stack 1: [ 
+Stack 2: 
+Stack 3: 
+Stack 4: V U 
+Stack 5: W 
+Stack 6: L K J I 
+Stack 7: \ 
+Stack 8: 
+Stack 9: T S R 
+Stack 10: Z Y 
+Stack 11: P O N 
+Stack 12: M 
+Stack 13: X 
+Stack 14: Q 
+
+Stack 0: A B C D E F G H I 
+Stack 1: [ 
+Stack 2: 
+Stack 3: 
+Stack 4: V U 
+Stack 5: W 
+Stack 6: L K J 
+Stack 7: \ 
+Stack 8: 
+Stack 9: T S R 
+Stack 10: Z Y 
+Stack 11: P O N 
+Stack 12: M 
+Stack 13: X 
+Stack 14: Q 
+
+Stack 0: A B C D E F G H I J 
+Stack 1: [ 
+Stack 2: 
+Stack 3: 
+Stack 4: V U 
+Stack 5: W 
+Stack 6: L K 
+Stack 7: \ 
+Stack 8: 
+Stack 9: T S R 
+Stack 10: Z Y 
+Stack 11: P O N 
+Stack 12: M 
+Stack 13: X 
+Stack 14: Q 
+
+Stack 0: A B C D E F G H I J K 
+Stack 1: [ 
+Stack 2: 
+Stack 3: 
+Stack 4: V U 
+Stack 5: W 
+Stack 6: L 
+Stack 7: \ 
+Stack 8: 
+Stack 9: T S R 
+Stack 10: Z Y 
+Stack 11: P O N 
+Stack 12: M 
+Stack 13: X 
+Stack 14: Q 
+
+Stack 0: A B C D E F G H I J K L 
+Stack 1: [ 
+Stack 2: 
+Stack 3: 
+Stack 4: V U 
+Stack 5: W 
+Stack 6: 
+Stack 7: \ 
+Stack 8: 
+Stack 9: T S R 
+Stack 10: Z Y 
+Stack 11: P O N 
+Stack 12: M 
+Stack 13: X 
+Stack 14: Q 
+
+Stack 0: A B C D E F G H I J K L M 
+Stack 1: [ 
+Stack 2: 
+Stack 3: 
+Stack 4: V U 
+Stack 5: W 
+Stack 6: 
+Stack 7: \ 
+Stack 8: 
+Stack 9: T S R 
+Stack 10: Z Y 
+Stack 11: P O N 
+Stack 12: 
+Stack 13: X 
+Stack 14: Q 
+
+Stack 0: A B C D E F G H I J K L M N 
+Stack 1: [ 
+Stack 2: 
+Stack 3: 
+Stack 4: V U 
+Stack 5: W 
+Stack 6: 
+Stack 7: \ 
+Stack 8: 
+Stack 9: T S R 
+Stack 10: Z Y 
+Stack 11: P O 
+Stack 12: 
+Stack 13: X 
+Stack 14: Q 
+
+Stack 0: A B C D E F G H I J K L M N O 
+Stack 1: [ 
+Stack 2: 
+Stack 3: 
+Stack 4: V U 
+Stack 5: W 
+Stack 6: 
+Stack 7: \ 
+Stack 8: 
+Stack 9: T S R 
+Stack 10: Z Y 
+Stack 11: P 
+Stack 12: 
+Stack 13: X 
+Stack 14: Q 
+
+Stack 0: A B C D E F G H I J K L M N O P 
+Stack 1: [ 
+Stack 2: 
+Stack 3: 
+Stack 4: V U 
+Stack 5: W 
+Stack 6: 
+Stack 7: \ 
+Stack 8: 
+Stack 9: T S R 
+Stack 10: Z Y 
+Stack 11: 
+Stack 12: 
+Stack 13: X 
+Stack 14: Q 
+
+Stack 0: A B C D E F G H I J K L M N O P Q 
+Stack 1: [ 
+Stack 2: 
+Stack 3: 
+Stack 4: V U 
+Stack 5: W 
+Stack 6: 
+Stack 7: \ 
+Stack 8: 
+Stack 9: T S R 
+Stack 10: Z Y 
+Stack 11: 
+Stack 12: 
+Stack 13: X 
+Stack 14: 
+
+Stack 0: A B C D E F G H I J K L M N O P Q R 
+Stack 1: [ 
+Stack 2: 
+Stack 3: 
+Stack 4: V U 
+Stack 5: W 
+Stack 6: 
+Stack 7: \ 
+Stack 8: 
+Stack 9: T S 
+Stack 10: Z Y 
+Stack 11: 
+Stack 12: 
+Stack 13: X 
+Stack 14: 
+
+Stack 0: A B C D E F G H I J K L M N O P Q R S 
+Stack 1: [ 
+Stack 2: 
+Stack 3: 
+Stack 4: V U 
+Stack 5: W 
+Stack 6: 
+Stack 7: \ 
+Stack 8: 
+Stack 9: T 
+Stack 10: Z Y 
+Stack 11: 
+Stack 12: 
+Stack 13: X 
+Stack 14: 
+
+Stack 0: A B C D E F G H I J K L M N O P Q R S T 
+Stack 1: [ 
+Stack 2: 
+Stack 3: 
+Stack 4: V U 
+Stack 5: W 
+Stack 6: 
+Stack 7: \ 
+Stack 8: 
+Stack 9: 
+Stack 10: Z Y 
+Stack 11: 
+Stack 12: 
+Stack 13: X 
+Stack 14: 
+
+Stack 0: A B C D E F G H I J K L M N O P Q R S T U 
+Stack 1: [ 
+Stack 2: 
+Stack 3: 
+Stack 4: V 
+Stack 5: W 
+Stack 6: 
+Stack 7: \ 
+Stack 8: 
+Stack 9: 
+Stack 10: Z Y 
+Stack 11: 
+Stack 12: 
+Stack 13: X 
+Stack 14: 
+
+Stack 0: A B C D E F G H I J K L M N O P Q R S T U V 
+Stack 1: [ 
+Stack 2: 
+Stack 3: 
+Stack 4: 
+Stack 5: W 
+Stack 6: 
+Stack 7: \ 
+Stack 8: 
+Stack 9: 
+Stack 10: Z Y 
+Stack 11: 
+Stack 12: 
+Stack 13: X 
+Stack 14: 
+
+Stack 0: A B C D E F G H I J K L M N O P Q R S T U V W 
+Stack 1: [ 
+Stack 2: 
+Stack 3: 
+Stack 4: 
+Stack 5: 
+Stack 6: 
+Stack 7: \ 
+Stack 8: 
+Stack 9: 
+Stack 10: Z Y 
+Stack 11: 
+Stack 12: 
+Stack 13: X 
+Stack 14: 
+
+Stack 0: A B C D E F G H I J K L M N O P Q R S T U V W X 
+Stack 1: [ 
+Stack 2: 
+Stack 3: 
+Stack 4: 
+Stack 5: 
+Stack 6: 
+Stack 7: \ 
+Stack 8: 
+Stack 9: 
+Stack 10: Z Y 
+Stack 11: 
+Stack 12: 
+Stack 13: 
+Stack 14: 
+
+Stack 0: A B C D E F G H I J K L M N O P Q R S T U V W X Y 
+Stack 1: [ 
+Stack 2: 
+Stack 3: 
+Stack 4: 
+Stack 5: 
+Stack 6: 
+Stack 7: \ 
+Stack 8: 
+Stack 9: 
+Stack 10: Z 
+Stack 11: 
+Stack 12: 
+Stack 13: 
+Stack 14: 
+
+Stack 0: A B C D E F G H I J K L M N O P Q R S T U V W X Y Z 
+Stack 1: [ 
+Stack 2: 
+Stack 3: 
+Stack 4: 
+Stack 5: 
+Stack 6: 
+Stack 7: \ 
+Stack 8: 
+Stack 9: 
+Stack 10: 
+Stack 11: 
+Stack 12: 
+Stack 13: 
+Stack 14: 
+
+Stack 0: A B C D E F G H I J K L M N O P Q R S T U V W X Y Z [ 
+Stack 1: 
+Stack 2: 
+Stack 3: 
+Stack 4: 
+Stack 5: 
+Stack 6: 
+Stack 7: \ 
+Stack 8: 
+Stack 9: 
+Stack 10: 
+Stack 11: 
+Stack 12: 
+Stack 13: 
+Stack 14: 
+
+Stack 0: A B C D E F G H I J K L M N O P Q R S T U V W X Y Z [ \ 
+Stack 1: 
+Stack 2: 
+Stack 3: 
+Stack 4: 
+Stack 5: 
+Stack 6: 
+Stack 7: 
+Stack 8: 
+Stack 9: 
+Stack 10: 
+Stack 11: 
+Stack 12: 
+Stack 13: 
+Stack 14: 
+
+Done and Nailed It 
+
