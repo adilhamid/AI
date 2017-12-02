@@ -21,5 +21,5 @@ newtonM(X,Y):-
 newtonM(X,Y):-
     update(X,Y).
 
-sin_zero(X,Result):-
-    newtonM(X,Result).
+sin_zero(X,Y):-
+    newtonM(X,Result), format("Y = ~4f",[Result]).
