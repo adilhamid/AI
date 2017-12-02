@@ -15,6 +15,7 @@ different([H|T]):-
     not(member(H,T)),different(T).
 sendMoreMoney:-
     digit(S), digit(E), digit(N), digit(D),digit(M), digit(O),digit(R), digit(N), digit(Y),
+    %M >0, S>0, % More Strict constraints make the problem converge fast
     M is 1+0, S>7,N is E+1, % Problem Statement Heuristics
     SEND is 1000*S+100*E+10*N+D,
     MORE is 1000*M+100*O+10*R+E,
