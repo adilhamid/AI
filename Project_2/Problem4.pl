@@ -1,10 +1,11 @@
 %Problem 4
 %Prime Factorization in Prolog
+%
 factor(N,M):-
     factorize(N,2,[],M).
 
 %Base Cases
-factorize(1,Count,M,M).
+factorize(1,_,M,M).
 
 %Main Function to call the factorization function
 factorize(N,Count,Acc, M):-

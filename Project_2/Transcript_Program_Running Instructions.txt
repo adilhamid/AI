@@ -1,0 +1,61 @@
+
+Problem 1:
+
+Having the Inputs inscribed already from the question you can query the following relations:
+
+Program Trace:
+
+?- brother(rod,X).
+X = tod .
+
+?- sister(marge,X).
+X = patty ;
+X = selma.
+
+?- aunt(X,patty).
+X = bart ;
+X = lisa ;
+X = maggie ;
+false.
+
+?- uncle(bart,X).
+X = herb .
+
+?- grandfather(maggie,X).
+X = abraham ;
+false.
+
+?- ancestor(bart,X).
+X = homer ;
+X = marge ;
+X = abraham ;
+X = jackie ;
+false.
+
+?- unrelated(tod,bart).
+true.
+
+?- unrelated(maggie, smithers).
+true.
+
+?- unrelated(maggie, selma).
+false.
+
+
+
+Problem 2:
+
+Find all the surgeons who live in texas and make over$100,00/yr
+%!Params are
+% OC - occupation Catergory - surgeon
+% S - State of residence (texas)
+% A - Salary Amount( 100,000)
+
+% Output is X, the name of the people who follow above constraints
+
+query(X,OC,S,A).
+
+Example Program Trace:
+̀?- query(X,surgeon,texas,100000).
+X = charlie ;
+X = lisa.
