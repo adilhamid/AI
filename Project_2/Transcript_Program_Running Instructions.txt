@@ -59,3 +59,302 @@ Example Program Trace:
 ̀?- query(X,surgeon,texas,100000).
 X = charlie ;
 X = lisa.
+
+
+Problem 3:
+
+Input is list of number.
+Output is unique numbers.
+
+To list all the number please press w after the command remdups is executed.
+
+Trace:
+?- remdups([1,1,2,3,2,4,5,6,7,1,2,1,51,24,26,81,51,64,2,3],X).
+X = [64, 81, 26, 24, 51, 7, 6, 5, 4|...] [write]
+X = [64, 81, 26, 24, 51, 7, 6, 5, 4, 3, 2, 1] .
+
+
+Problem 4:
+
+Input: the number for which we need to get the prime factors.
+Output: Prime factors in a list
+
+Trace:
+?- factor(7,P).
+P = [7] .
+
+?- factor(12,P).
+P = [3, 2, 2] .
+
+?- factor(1024,P).
+P = [2, 2, 2, 2, 2, 2, 2, 2, 2, 2] .
+
+?- factor(21,P).
+P = [7, 3] .
+
+?- factor(54,P).
+P = [3, 3, 3, 2] .
+
+?- factor(13,P).
+P = [13] .
+
+?- factor(23,P).
+P = [23] .
+
+?- factor(1048,P).
+P = [131, 2, 2, 2] 
+
+
+Problem 5:
+
+It has two parts:
+
+a) bitvec(L,List)
+Given a number L it generated the all possible combinations of 1's and 0's of length L.
+
+Trace:
+
+?- bitvec(5,List).
+List = [1, 1, 1, 1, 1] ;
+List = [1, 1, 1, 1, 0] ;
+List = [1, 1, 1, 0, 1] ;
+List = [1, 1, 1, 0, 0] ;
+List = [1, 1, 0, 1, 1] ;
+List = [1, 1, 0, 1, 0] ;
+List = [1, 1, 0, 0, 1] ;
+List = [1, 1, 0, 0, 0] ;
+List = [1, 0, 1, 1, 1] ;
+List = [1, 0, 1, 1, 0] ;
+List = [1, 0, 1, 0, 1] ;
+List = [1, 0, 1, 0, 0] ;
+List = [1, 0, 0, 1, 1] ;
+List = [1, 0, 0, 1, 0] ;
+List = [1, 0, 0, 0, 1] ;
+List = [1, 0, 0, 0, 0] ;
+List = [0, 1, 1, 1, 1] ;
+List = [0, 1, 1, 1, 0] ;
+List = [0, 1, 1, 0, 1] ;
+List = [0, 1, 1, 0, 0] ;
+List = [0, 1, 0, 1, 1] ;
+List = [0, 1, 0, 1, 0] ;
+List = [0, 1, 0, 0, 1] ;
+List = [0, 1, 0, 0, 0] ;
+List = [0, 0, 1, 1, 1] ;
+List = [0, 0, 1, 1, 0] ;
+List = [0, 0, 1, 0, 1] ;
+List = [0, 0, 1, 0, 0] ;
+List = [0, 0, 0, 1, 1] ;
+List = [0, 0, 0, 1, 0] ;
+List = [0, 0, 0, 0, 1] ;
+List = [0, 0, 0, 0, 0].
+
+
+b) code(L,S,List).
+Generates all the possible combination of L length size binary array with S set bits.
+
+Trace:
+?- code(5,2,List).
+List = [1, 1, 0, 0, 0] ;
+List = [1, 0, 1, 0, 0] ;
+List = [1, 0, 0, 1, 0] ;
+List = [1, 0, 0, 0, 1] ;
+List = [0, 1, 1, 0, 0] ;
+List = [0, 1, 0, 1, 0] ;
+List = [0, 1, 0, 0, 1] ;
+List = [0, 0, 1, 1, 0] ;
+List = [0, 0, 1, 0, 1] ;
+List = [0, 0, 0, 1, 1] ;
+false.
+
+
+
+Problem 6:
+Compute the zeros of sin(x), that is the
+values of x such that sin(x)=0, using Newton's method
+
+
+Trace:
+The output is formatted to 4 decimal places which is a print statement 
+and also saved in Y which stores the whole value
+
+?- sin_zero(10,Y).
+Y = 9.4248
+Y = 9.424777960768635 .
+
+?- sin_zero(3,Y).
+Y = 3.1416
+Y = 3.141592653300477 
+
+
+Problem 7:
+SEND + MORE = MONEY is a classical "cryptarithmetic" puzzle: the
+variables S, E, N, D, M, O, R, Y represent digits between 0 and 9, and
+the task is finding values for them such that the following arithmetic
+operation is correct.
+
+I have included few more restriction which makes the code run in under 12seconds as compared to 112 seconds.
+The seconds are the cpu seconds and can vary depending on the machine used.
+
+The Query is sendMoreMoney.
+
+Trace:
+
+?- sendMoreMoney.
+[[9,5,6,7],[1,0,8,5],[1,0,6,5,2]]
+true 
+
+The Answer is for [[S,E,N,D], [M,O,R,E], [M,O,N,E,Y]]
+
+
+
+Problem 8:
+
+I have solved it using two schemes: One Row Major and other Column Major. I will show the trace for both the implementations.
+Please note that the initial observation needs to be changed in the file before running it.
+I have already put some configuration in the code to make the depict the example.
+
+Note: Please load the new configuration, i.e State description before running the new instance.s
+
+
+A)   File Name is : Problem8_p(C,R).pl
+
+%Facts for the State Description
+%
+% Please make sure that the state description is entered in Row Major
+% fashion i.e p(x,C,R) -> where R is row and C is column
+
+p(x,1,1).
+p(x,2,1).
+p(o,3,1).
+p(o,1,2).
+p(o,2,2).
+
+%The above configuration can be depicted as follows
+%      C1 C2 C3
+%
+% R1:   X  X  O
+% R2:   O  -  O
+% R3:   -  -  -
+%
+
+Trace:
+For the above configuration the trace is:
+
+?- ttt_move(x,R,C).
+Move to Block Opponent (o) !
+R = 2,
+C = 3 ;
+Move to Block Opponent (o) !
+R = 3,
+C = 1 ;
+false.
+
+?- ttt_move(o,R,C).
+Go For Win! (o)
+R = 2,
+C = 3 ;
+Go For Win! (o)
+R = 3,
+C = 1 ;
+false.
+
+
+B) File Name is : Problem8_p(R,C)
+
+%Facts for the State Description
+% Please make sure that the state description is entered in Row Major
+% fashion i.e p(x,R,C) -> where R is row and C is column
+
+p(x,1,1).
+p(x,1,2).
+p(o,1,3).
+p(o,2,1).
+p(o,2,3).
+
+
+%The above configuration can be depicted as follows
+%		C1 C2 C3
+%
+% R1:   X  X  O  
+% R2:   O  -  O 
+% R3:   -  -  -
+%
+
+
+
+
+?- ttt_move(x,R,C).
+Move to Block Opponent (o) !
+R = C, C = 2 ;
+Move to Block Opponent (o) !
+R = C, C = 2 ;
+Move to Block Opponent (o) !
+R = C, C = 3 ;
+Move to Block Opponent (o) !
+R = C, C = 3 ;
+false.
+
+?- ttt_move(o,R,C).
+Go For Win! (o)
+R = C, C = 2 ;
+Go For Win! (o)
+R = C, C = 2 ;
+Go For Win! (o)
+R = C, C = 3 ;
+Go For Win! (o)
+R = C, C = 3 ;
+false.
+
+
+Note: Please load the new configuration, i.e State description before running the new instance.
+
+
+Problem 9:
+Since no information about the Wompus, Pit and Gold is available throught any percepts directly, i am using the closed world assumption to derive the wompus free and pit free setup.
+
+Note: Please load the new configuration, i.e State description before running the new instance.
+
+% State Description
+% Please make sure that the state description is entered in Row Major
+% fashion i.e p(C,R) -> where R is row and C is column
+% Facts about the Wompus World
+
+visited(4,1).
+visited(4,2).
+visited(4,3).
+visited(4,4).
+stench(4,2).
+breeze(4,3).
+breeze(4,4).
+
+%The above configuration can be depicted as follows
+%	    C1 C2 C3 C4
+% R1:   -  -  P   V
+% R2:   -  -  P   V
+% R3:   -  G  W   V
+% R4:   -  -  -   V
+%
+
+Trace:
+
+For Command : candidate(X,Y).
+
+?- candidate(X,Y).
+X = 3,
+Y = 1 ;
+X = 3,
+Y = 2 ;
+X = Y, Y = 3 ;
+X = 3,
+Y = 4 ;
+false.
+
+
+Out of Candidates, which one is safe:
+
+command is: ww_move(X,Y).
+
+ᤀ?- ww_move(X,Y).
+X = 3,
+Y = 1 
+

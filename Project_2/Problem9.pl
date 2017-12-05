@@ -67,9 +67,9 @@ candidate(X,Y):-
 
 ww_move(X,Y):-
     val(X),val(Y),
-    candidate(X,Y),
     wompusFree(X,Y),
-    pitFree(X,Y).
+    pitFree(X,Y),
+    candidate(X,Y).
 
 
 

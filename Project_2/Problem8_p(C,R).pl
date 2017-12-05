@@ -9,7 +9,7 @@ p(o,1,2).
 p(o,2,2).
 
 %The above configuration can be depicted as follows
-%       C1 C2 C3
+%      C1 C2 C3
 %
 % R1:   X  X  O
 % R2:   O  -  O
