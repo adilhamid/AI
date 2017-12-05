@@ -358,3 +358,11 @@ command is: ww_move(X,Y).
 X = 3,
 Y = 1 
 
+
+
+
+
+
+
+Final Note: Since some predicates and symbols are same across the programs, please make sure that you remove the trace of the previous file before running the next one as the previous precicates and symbols may interfere.
+
