@@ -15,11 +15,8 @@ factorize(N,Count,Acc, M):-
 
 factorize(N,Count,Acc,M):-
     Count =< N,NewCount is Count+1,
+    not(divisible(N,Count)),
     factorize(N,NewCount,Acc,M).
-
-factorize(N,Count,Acc,M):-
-     Count>=N,
-     factorize(1,Count,Acc,M).
 
 divisible(N,X):-
     M is N mod X, M=0.
